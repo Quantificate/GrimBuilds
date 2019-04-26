@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Grim Builds - Grim Dawn Build Compendium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Germania+One|Special+Elite" rel="stylesheet">
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#" id="title">Grim Builds</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/home.html">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Builds
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/browse.html">Browse Builds</a>
+                <a class="dropdown-item" href="/top.html">Top Builds</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/submit.html">Submit a Build</a>
+              </div>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search Builds" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    </header>
+    <div class="container-fluid" id="filter">
+      <div class="row">
+        <div class="col" id="classes">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Classes
+            </button>
+            <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Apostate</a>
+              <a class="dropdown-item" href="#">Archon</a>
+              <a class="dropdown-item" href="#">Battlemage</a>
+              <a class="dropdown-item" href="#">Blademaster</a>
+              <a class="dropdown-item" href="#">Cabalist</a>
+              <a class="dropdown-item" href="#">Commando</a>
+              <a class="dropdown-item" href="#">Conjurer</a>
+              <a class="dropdown-item" href="#">Death Knight</a>
+            </div>
+          </div>
+        </div>
+        <div class="col" id="types">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Playstyles
+            </button>
+            <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">DW Ranged</a>
+              <a class="dropdown-item" href="#">DW Melee</a>
+              <a class="dropdown-item" href="#">2H Ranged</a>
+              <a class="dropdown-item" href="#">2H Melee</a>
+              <a class="dropdown-item" href="#">Sword &amp; Board</a>
+              <a class="dropdown-item" href="#">Caster</a>
+              <a class="dropdown-item" href="#">Other</a>
+            </div>
+          </div>
+        </div>
+        <div class="col" id="damages">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Damage Types
+            </button>
+            <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Physical</a>
+              <a class="dropdown-item" href="#">Fire</a>
+              <a class="dropdown-item" href="#">Cold</a>
+              <a class="dropdown-item" href="#">Lightning</a>
+              <a class="dropdown-item" href="#">Acid/Poison</a>
+              <a class="dropdown-item" href="#">Vitality</a>
+              <a class="dropdown-item" href="#">Chaos</a>
+              <a class="dropdown-item" href="#">Aether</a>
+              <a class="dropdown-item" href="#">Piercing</a>
+            </div>
+          </div>
+        </div>
+        <div class="col" id="masteries">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Masteries
+            </button>
+            <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Soldier</a>
+              <a class="dropdown-item" href="#">Occultist</a>
+              <a class="dropdown-item" href="#">Arcanist</a>
+              <a class="dropdown-item" href="#">Shaman</a>
+              <a class="dropdown-item" href="#">Nightblade</a>
+              <a class="dropdown-item" href="#">Demolitionist</a>
+              <a class="dropdown-item" href="#">Inquisitor</a>
+              <a class="dropdown-item" href="#">Necromancer</a>
+              <a class="dropdown-item" href="#">Oathkeeper</a>
+            </div>
+          </div>
+        </div>
+        <div class="col" id="srealm">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Shattered Realms
+            </button>
+            <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">SR 1+</a>
+              <a class="dropdown-item" href="#">SR 15+</a>
+              <a class="dropdown-item" href="#">SR 25+</a>
+              <a class="dropdown-item" href="#">SR 50+</a>
+              <a class="dropdown-item" href="#">SR 75+</a>
+            </div>
+          </div>
+        </div>
+        <div class="col" id="cruciclear">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Crucible
+            </button>
+            <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Crucible 1+</a>
+              <a class="dropdown-item" href="#">Crucible 15+</a>
+              <a class="dropdown-item" href="#">Crucible 25+</a>
+              <a class="dropdown-item" href="#">Crucible 50+</a>
+              <a class="dropdown-item" href="#">Crucible 75+</a>
+              <a class="dropdown-item" href="#">Crucible 100+</a>
+              <a class="dropdown-item" href="#">Crucible 125+</a>
+              <a class="dropdown-item" href="#">Crucible 150+</a>
+              <a class="dropdown-item" href="#">Crucible 170</a>
+            </div>
+          </div>
+        </div>
+        <div class="col" id="purposes">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Purpose
+            </button>
+            <div class="dropdown-menu pre-scrollable" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Leveling</a>
+              <a class="dropdown-item" href="#">Farming</a>
+              <a class="dropdown-item" href="#">SR/Crucible</a>
+              <a class="dropdown-item" href="#">Endgame Content</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container" id="main">
+      <div class="row">
+        <div class="card" style="width: 18rem;">
+          <img src="static/images/placehold.png" class="card-img-top" alt="Character Placeholder">
+          <div class="card-body">
+            <h5 class="card-title">Katie Kaboom</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="class">Elementalist</li>
+            <li class="list-group-item" id="playstyle">Dual Wield Ranged</li>
+            <li class="list-group-item" id="damage">Lightning</li>
+          </ul>
+          <div class="card-body">
+            <a href="/thisbuild.html" class="card-link">More Info</a>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <img src="static/images/placehold.png" class="card-img-top" alt="Character Placeholder">
+          <div class="card-body">
+            <h5 class="card-title">That Show Everyone Watches</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" id="class2">Saboteur</li>
+            <li class="list-group-item" id="playstyle">Dual Wield Melee</li>
+            <li class="list-group-item" id="damage2">Fire/Cold</li>
+          </ul>
+          <div class="card-body">
+            <a href="https://www.grimtools.com/calc/1NXqAaL2" class="card-link">More Info</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
