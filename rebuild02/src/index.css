@@ -1,0 +1,21 @@
+nav {
+    font-family:"Special Elite", serif;
+    color:#eeeeee;
+}
+
+a, button {
+    color:#eeeeee!important;
+}
+
+.dropdown-menu a {
+    color:#000000!important;
+}
+
+.nav-item {
+    border:#666666 1px solid;
+    border-radius:5px;
+}
+
+.nav-item:hover {
+    background:#666666;
+}
