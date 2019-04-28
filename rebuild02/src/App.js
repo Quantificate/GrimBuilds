@@ -70,6 +70,75 @@ function App() {
                         <NavDropdown.Item href="#">Witch Hunter</NavDropdown.Item>
                         <NavDropdown.Item href="#">Witchblade</NavDropdown.Item>
                     </NavDropdown>
+                    <NavDropdown title="Masteries" id="mastery-nav-dropdown">
+                        <NavDropdown.Item href="#">Soldier</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Demolitionist</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Occultist</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Nightblade</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Arcanist</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Shaman</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Inquisitor</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Necromancer</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Oathkeeper</NavDropdown.Item>
+                    </NavDropdown>
+                    <NavDropdown title="Playstyle" id="style-nav-dropdown">
+                        <NavDropdown.Item href="#">DW Melee</NavDropdown.Item>
+                        <NavDropdown.Item href="#">DW Ranged</NavDropdown.Item>
+                        <NavDropdown.Item href="#">2H Melee</NavDropdown.Item>
+                        <NavDropdown.Item href="#">2H Ranged</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Sword and Board</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Caster</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Pets</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Retaliation</NavDropdown.Item>
+                    </NavDropdown>
+                    <NavDropdown title="Purpose" id="purpose-nav-dropdown">
+                        <NavDropdown.Item href="#">Main Campaign</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Leveling</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Endgame Bosses</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Shattered Realms/Crucible</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Farming</NavDropdown.Item>
+                        <NavDropdown.Item href="#">New Players</NavDropdown.Item>
+                    </NavDropdown>
+                    <NavDropdown title="Damage Types" id="damage-nav-dropdown">
+                        <NavDropdown.Item href="#">Physical/Internal Trauma</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Piercing</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Fire/Burning</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Cold/Frostburn</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Lightning/Electrocution</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Elemental</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Acid/Poison</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Bleeding</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Vitality/Vitality Decay</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Chaos</NavDropdown.Item>
+                    </NavDropdown>
+                    <NavDropdown title="Shattered Realms" id="sr-nav-dropdown">
+                        <NavDropdown.Item href="#">SR 1+</NavDropdown.Item>
+                        <NavDropdown.Item href="#">SR 15+</NavDropdown.Item>
+                        <NavDropdown.Item href="#">SR 25+</NavDropdown.Item>
+                        <NavDropdown.Item href="#">SR 50+</NavDropdown.Item>
+                        <NavDropdown.Item href="#">SR 75+</NavDropdown.Item>
+                    </NavDropdown>
+                    <NavDropdown title="Crucible" id="cruci-nav-dropdown">
+                        <NavDropdown.Item href="#">Crucible 1+</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Crucible 15+</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Crucible 25+</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Crucible 50+</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Crucible 75+</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Crucible 100+</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Crucible 125+</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Crucible 150+</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Crucible 170</NavDropdown.Item>
+                    </NavDropdown>
+                    <NavDropdown title="Gear Requirement" id="gear-nav-dropdown">
+                        <NavDropdown.Item href="#">100% Vendors</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Vendors/Rep Blueprints</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Vendors/Dropped Blueprints</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Light Farming Legendaries</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Moderate Farming Legendaries</NavDropdown.Item>
+                        <NavDropdown.Item href="#">Heavy Farming Legendaries</NavDropdown.Item>
+                        <NavDropdown.Item href="#">1 MI Farming</NavDropdown.Item>
+                        <NavDropdown.Item href="#">2+ MI Farming</NavDropdown.Item>
+                    </NavDropdown>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

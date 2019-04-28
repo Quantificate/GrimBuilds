@@ -14,6 +14,7 @@ a, button {
 .nav-item {
     border:#666666 1px solid;
     border-radius:5px;
+    margin-right:10px;
 }
 
 .nav-item:hover {
