@@ -1,6 +1,10 @@
 import React from 'react';
-import {Nav, Navbar, NavDropdown, Form, FormControl, Button, DropdownButton, Dropdown} from 'react-bootstrap';
+import {Card, Nav, Navbar, NavDropdown, Form, FormControl, Button, DropdownButton, Dropdown, ListGroup, ListGroupItem} from 'react-bootstrap';
 import './App.css';
+
+//TODO: Conditionals for different info items based on Purpose.
+//TODO: Code for creating cards generically, then filling with database info.
+//TODO: Database interface.
 
 function App() {
   return (
@@ -142,6 +146,74 @@ function App() {
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
+        <div className="container" id="cardholder">
+            <div className="row">
+                <Card style={{ width: '15rem' }}>
+                    <Card.Img variant="top" src="/images/placehold.png" />
+                    <Card.Body>
+                        <Card.Title>Character Name</Card.Title>
+                        <Card.Text>A generic GD character build.</Card.Text>
+                    </Card.Body>
+                    <ListGroup className="list-group-flush">
+                        <ListGroupItem>Class</ListGroupItem>
+                        <ListGroupItem>Purpose</ListGroupItem>
+                        <ListGroupItem>Playstyle</ListGroupItem>
+                        <ListGroupItem>Damage Type</ListGroupItem>
+                    </ListGroup>
+                    <Card.Body>
+                        <Card.Link href="#">Full Build</Card.Link>
+                    </Card.Body>
+                </Card>
+                <Card style={{ width: '15rem' }}>
+                    <Card.Img variant="top" src="/images/placehold.png" />
+                    <Card.Body>
+                        <Card.Title>Character Name</Card.Title>
+                        <Card.Text>A generic GD character build for testing two slots.</Card.Text>
+                    </Card.Body>
+                    <ListGroup className="list-group-flush">
+                        <ListGroupItem>Druid</ListGroupItem>
+                        <ListGroupItem>Main Campaign</ListGroupItem>
+                        <ListGroupItem>Caster</ListGroupItem>
+                        <ListGroupItem>Lightning Damage</ListGroupItem>
+                    </ListGroup>
+                    <Card.Body>
+                        <Card.Link href="#">Full Build</Card.Link>
+                    </Card.Body>
+                </Card>
+                <Card style={{ width: '15rem' }}>
+                    <Card.Img variant="top" src="/images/placehold.png" />
+                    <Card.Body>
+                        <Card.Title>Character Name</Card.Title>
+                        <Card.Text>A generic GD character build for testing three slots.</Card.Text>
+                    </Card.Body>
+                    <ListGroup className="list-group-flush">
+                        <ListGroupItem>Oppressor</ListGroupItem>
+                        <ListGroupItem>Main Campaign</ListGroupItem>
+                        <ListGroupItem>Sword and Board</ListGroupItem>
+                        <ListGroupItem>Vitality Damage</ListGroupItem>
+                    </ListGroup>
+                    <Card.Body>
+                        <Card.Link href="#">Full Build</Card.Link>
+                    </Card.Body>
+                </Card>
+                <Card style={{ width: '15rem' }}>
+                    <Card.Img variant="top" src="/images/placehold.png" />
+                    <Card.Body>
+                        <Card.Title>Character Name</Card.Title>
+                        <Card.Text>A generic GD character build for testing four slots.</Card.Text>
+                    </Card.Body>
+                    <ListGroup className="list-group-flush">
+                        <ListGroupItem>Mage Hunter</ListGroupItem>
+                        <ListGroupItem>Main Campaign</ListGroupItem>
+                        <ListGroupItem>DW Melee</ListGroupItem>
+                        <ListGroupItem>Aether Damage</ListGroupItem>
+                    </ListGroup>
+                    <Card.Body>
+                        <Card.Link href="#">Full Build</Card.Link>
+                    </Card.Body>
+                </Card>
+            </div>
+        </div>
       </body>
     </div>
 

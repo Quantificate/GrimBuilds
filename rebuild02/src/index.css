@@ -1,3 +1,7 @@
+body {
+    background:#666666;
+}
+
 nav {
     font-family:"Special Elite", serif;
     color:#eeeeee;
@@ -19,4 +23,28 @@ a, button {
 
 .nav-item:hover {
     background:#666666;
+}
+
+#cardholder {
+    margin-top:10px;
+}
+
+.card {
+    background:#333333;
+    color:#eeeeee;
+    font-family:"Special Elite", serif;
+    padding:3px;
+    margin:5px;
+}
+
+.card p {
+    font-size:12px;
+}
+
+.list-group-item {
+    background:#333333!important;
+}
+
+.card a:hover {
+    color:#55dd79!important;
 }
