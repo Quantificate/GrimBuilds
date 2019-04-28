@@ -1,0 +1,23 @@
+{
+  "name": "grimbuilds",
+  "version": "1.0.0",
+  "description": "Website/App for Browsing Grim Dawn character builds.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Quantificate/GrimBuilds.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Quantificate/GrimBuilds/issues"
+  },
+  "homepage": "https://github.com/Quantificate/GrimBuilds#readme",
+  "dependencies": {
+    "react-bootstrap": "^1.0.0-beta.8"
+  }
+}
