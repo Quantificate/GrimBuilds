@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Card, Nav, Navbar, NavDropdown, Form, FormControl, Button, ListGroup, ListGroupItem} from 'react-bootstrap';
+import SearchResults from 'react-filter-search';
+import FilterResults from 'react-filter-search';
 import './App.css';
 
 //TODO: Conditionals for different info items based on Purpose.
@@ -8,7 +10,10 @@ import './App.css';
 class App extends Component {
     constructor(){
         super();
-        this.state = {builds:[]};
+        this.state = {
+            builds:[],
+            value:''
+        };
     }
     componentDidMount() {
         fetch('/builds')
@@ -21,7 +26,12 @@ class App extends Component {
             this.setState({ builds })
         });
     }
+    handleValueChange = event => {
+        const {value} = event.target;
+        this.setState({value});
+    };
     render() {
+        const {builds, value} = this.state;
       return (
         <div className="App">
           <header className="App-header">
@@ -31,16 +41,15 @@ class App extends Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <NavDropdown title="Builds" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#">Browse Builds</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Top Builds</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Newest Builds</NavDropdown.Item>
+                            <NavDropdown.Item>Browse Builds</NavDropdown.Item>
+                            <NavDropdown.Item>Top Builds</NavDropdown.Item>
+                            <NavDropdown.Item>Newest Builds</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="#">Submit Your Build</NavDropdown.Item>
+                            <NavDropdown.Item>Submit Your Build</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Form inline>
-                        <FormControl type="text" placeholder="Search Builds" className="mr-sm-2" />
-                        <Button variant="outline-secondary">Search</Button>
+                        <FormControl type="text" placeholder="Search Builds" className="mr-sm-2" value={value} onChange={this.handleValueChange} />
                     </Form>
                 </Navbar.Collapse>
             </Navbar>
@@ -50,141 +59,180 @@ class App extends Component {
                 <Navbar.Brand href="#home">Filters</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <NavDropdown title="Classes" id="class-nav-dropdown">
-                            <NavDropdown.Item href="#">Apostate</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Archon</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Battlemage</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Blademaster</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Cabalist</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Commando</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Conjurer</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Death Knight</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Deceiver</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Defiler</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Dervish</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Druid</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Elementalist</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Infiltrator</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Mage Hunter</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Oppressor</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Paladin</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Purifier</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Pyromancer</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Reaper</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Ritualist</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Saboteur</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Sentinel</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Shieldbreaker</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Sorcerer</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Spellbinder</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Spellbreaker</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Tactician</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Templar</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Trickster</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Vindicator</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Warder</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Warlock</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Warlord</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Witch Hunter</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Witchblade</NavDropdown.Item>
-                        </NavDropdown>
-                        <NavDropdown title="Masteries" id="mastery-nav-dropdown">
-                            <NavDropdown.Item href="#">Soldier</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Demolitionist</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Occultist</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Nightblade</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Arcanist</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Shaman</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Inquisitor</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Necromancer</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Oathkeeper</NavDropdown.Item>
-                        </NavDropdown>
-                        <NavDropdown title="Playstyle" id="style-nav-dropdown">
-                            <NavDropdown.Item href="#">DW Melee</NavDropdown.Item>
-                            <NavDropdown.Item href="#">DW Ranged</NavDropdown.Item>
-                            <NavDropdown.Item href="#">2H Melee</NavDropdown.Item>
-                            <NavDropdown.Item href="#">2H Ranged</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Sword and Board</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Caster</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Pets</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Retaliation</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Hybrid</NavDropdown.Item>
-                        </NavDropdown>
-                        <NavDropdown title="Purpose" id="purpose-nav-dropdown">
-                            <NavDropdown.Item href="#">Main Campaign</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Leveling</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Endgame</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Shattered Realms/Crucible</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Farming</NavDropdown.Item>
-                            <NavDropdown.Item href="#">New Players</NavDropdown.Item>
-                        </NavDropdown>
-                        <NavDropdown title="Damage Types" id="damage-nav-dropdown">
-                            <NavDropdown.Item href="#">Physical/Internal Trauma</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Piercing</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Fire/Burning</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Cold/Frostburn</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Lightning/Electrocution</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Elemental</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Acid/Poison</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Bleeding</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Vitality/Vitality Decay</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Chaos</NavDropdown.Item>
-                        </NavDropdown>
-                        <NavDropdown title="Shattered Realms" id="sr-nav-dropdown">
-                            <NavDropdown.Item href="#">SR 1+</NavDropdown.Item>
-                            <NavDropdown.Item href="#">SR 15+</NavDropdown.Item>
-                            <NavDropdown.Item href="#">SR 25+</NavDropdown.Item>
-                            <NavDropdown.Item href="#">SR 50+</NavDropdown.Item>
-                            <NavDropdown.Item href="#">SR 75+</NavDropdown.Item>
-                        </NavDropdown>
-                        <NavDropdown title="Crucible" id="cruci-nav-dropdown">
-                            <NavDropdown.Item href="#">Crucible 1+</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Crucible 15+</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Crucible 25+</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Crucible 50+</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Crucible 75+</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Crucible 100+</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Crucible 125+</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Crucible 150+</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Crucible 170</NavDropdown.Item>
-                        </NavDropdown>
-                        <NavDropdown title="Gear Requirement" id="gear-nav-dropdown">
-                            <NavDropdown.Item href="#">100% Vendors</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Vendors/Rep Blueprints</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Vendors/Dropped Blueprints</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Light Farming Legendaries</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Moderate Farming Legendaries</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Heavy Farming Legendaries</NavDropdown.Item>
-                            <NavDropdown.Item href="#">1 MI Farming</NavDropdown.Item>
-                            <NavDropdown.Item href="#">2+ MI Farming</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
+                    <Form className="mr-auto" value={value} onChange={this.handleValueChange}>
+                        <Form.Row>
+                        <Form.Group controlId="formClass">
+                            <Form.Label>Class</Form.Label>
+                            <Form.Control as="select">
+                                <option>Classes</option>
+                                <option>Apostate</option>
+                                <option>Archon</option>
+                                <option>Battlemage</option>
+                                <option>Blademaster</option>
+                                <option>Cabalist</option>
+                                <option>Commando</option>
+                                <option>Conjurer</option>
+                                <option>Death Knight</option>
+                                <option>Deceiver</option>
+                                <option>Defiler</option>
+                                <option>Dervish</option>
+                                <option>Druid</option>
+                                <option>Elementalist</option>
+                                <option>Infiltrator</option>
+                                <option>Mage Hunter</option>
+                                <option>Oppressor</option>
+                                <option>Paladin</option>
+                                <option>Purifier</option>
+                                <option>Pyromancer</option>
+                                <option>Reaper</option>
+                                <option>Ritualist</option>
+                                <option>Saboteur</option>
+                                <option>Sentinel</option>
+                                <option>Shieldbreaker</option>
+                                <option>Sorcerer</option>
+                                <option>Spellbinder</option>
+                                <option>Spellbreaker</option>
+                                <option>Tactician</option>
+                                <option>Templar</option>
+                                <option>Trickster</option>
+                                <option>Vindicator</option>
+                                <option>Warder</option>
+                                <option>Warlock</option>
+                                <option>Warlord</option>
+                                <option>Witch Hunter</option>
+                                <option>Witchblade</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="formMastery">
+                            <Form.Label>Mastery</Form.Label>
+                            <Form.Control as="select">
+                                <option>Masteries</option>
+                                <option>Soldier</option>
+                                <option>Demolitionist</option>
+                                <option>Occultist</option>
+                                <option>Nightblade</option>
+                                <option>Arcanist</option>
+                                <option>Shaman</option>
+                                <option>Inquisitor</option>
+                                <option>Necromancer</option>
+                                <option>Oathkeeper</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="formStyle">
+                            <Form.Label>Playstyle</Form.Label>
+                            <Form.Control as="select">
+                                <option>Styles</option>
+                                <option>DW Melee</option>
+                                <option>DW Ranged</option>
+                                <option>2H Melee</option>
+                                <option>2H Ranged</option>
+                                <option>Sword and Board</option>
+                                <option>Caster</option>
+                                <option>Pets</option>
+                                <option>Retaliation</option>
+                                <option>Hybrid</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="formPurpose">
+                            <Form.Label>Purpose</Form.Label>
+                            <Form.Control as="select">
+                                <option>Purposes</option>
+                                <option>Main Campaign</option>
+                                <option>Leveling</option>
+                                <option>Endgame</option>
+                                <option>Shattered Realms/Crucible</option>
+                                <option>Farming</option>
+                                <option>New Players</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="formDamage">
+                            <Form.Label>Damage Type</Form.Label>
+                            <Form.Control as="select">
+                                <option>Damage Types</option>
+                                <option>Physical</option>
+                                <option>Piercing</option>
+                                <option>Fire</option>
+                                <option>Cold</option>
+                                <option>Lightning</option>
+                                <option>Elemental</option>
+                                <option>Acid</option>
+                                <option>Bleeding</option>
+                                <option>Vitality</option>
+                                <option>Chaos</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="formSR">
+                            <Form.Label>Shattered Realms</Form.Label>
+                            <Form.Control as="select">
+                                <option>SR Ability</option>
+                                <option>SR 1+</option>
+                                <option>SR 15+</option>
+                                <option>SR 25+</option>
+                                <option>SR 50+</option>
+                                <option>SR 75+</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="formCruci">
+                            <Form.Label>Crucible</Form.Label>
+                            <Form.Control as="select">
+                                <option>Crucible Ability</option>
+                                <option>Crucible 1+</option>
+                                <option>Crucible 15+</option>
+                                <option>Crucible 25+</option>
+                                <option>Crucible 50+</option>
+                                <option>Crucible 75+</option>
+                                <option>Crucible 100+</option>
+                                <option>Crucible 125+</option>
+                                <option>Crucible 150+</option>
+                                <option>Crucible 170</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="formGear">
+                            <Form.Label>Gear Requirements</Form.Label>
+                            <Form.Control as="select">
+                                <option>Gear Required</option>
+                                <option>100% Vendors</option>
+                                <option>Vendors/Rep Blueprints</option>
+                                <option>Vendors/Dropped Blueprints</option>
+                                <option>Light Farming Legendaries</option>
+                                <option>Moderate Farming Legendaries</option>
+                                <option>Heavy Farming Legendaries</option>
+                                <option>1 MI Farming</option>
+                                <option>2+ MI Farming</option>
+                            </Form.Control>
+                        </Form.Group>
+                    </Form.Row>
+                    </Form>
+                    <Button className="btn btn-secondary" href="/">Reset</Button>
                 </Navbar.Collapse>
             </Navbar>
             <div className="container" id="cardholder">
-                <div className="row">
-                    {this.state.builds.map(build =>
-                    <Card style={{width:'15rem'}}>
-                        <Card.Img variant="top" src="/images/placehold.png" />
-                        <Card.Body>
-                            <Card.Title>{build.charname}</Card.Title>
-                            <Card.Text>{build.blurb}</Card.Text>
-                        </Card.Body>
-                        <ListGroup className="list-group-flush">
-                            <ListGroupItem>{build.class}</ListGroupItem>
-                            <ListGroupItem>{build.mastery1} {build.mastery2}</ListGroupItem>
-                            <ListGroupItem>{build.purpose}</ListGroupItem>
-                            <ListGroupItem>{build.playstyle}</ListGroupItem>
-                            <ListGroupItem>{build.damagetype}</ListGroupItem>
-                            <ListGroupItem>By: {build.author}</ListGroupItem>
-                        </ListGroup>
-                        <Card.Body>
-                            <Card.Link href={build.link} target="_blank">Grim Tools</Card.Link>
-                        </Card.Body>
-                    </Card>
-                    )}
-                </div>
+
+                    <SearchResults value={value} data={builds}
+                    renderResults={results => (
+                        <div className="row">
+                        {results.map(build =>
+                        <Card style={{width:'15rem'}}>
+                            <Card.Img variant="top" src="/images/placehold.png" />
+                            <Card.Body>
+                                <Card.Title>{build.charname}</Card.Title>
+                                <Card.Text>{build.blurb}</Card.Text>
+                            </Card.Body>
+                            <ListGroup className="list-group-flush">
+                                <ListGroupItem>{build.class}</ListGroupItem>
+                                <ListGroupItem>{build.mastery1} {build.mastery2}</ListGroupItem>
+                                <ListGroupItem>{build.purpose}</ListGroupItem>
+                                <ListGroupItem>{build.playstyle}</ListGroupItem>
+                                <ListGroupItem>{build.damagetype}</ListGroupItem>
+                                <ListGroupItem>By: {build.author}</ListGroupItem>
+                            </ListGroup>
+                            <Card.Body>
+                                <Card.Link href={build.link} target="_blank">Grim Tools</Card.Link>
+                            </Card.Body>
+                        </Card>
+                        )}
+                        </div>
+                        )} />
             </div>
           </body>
         </div>

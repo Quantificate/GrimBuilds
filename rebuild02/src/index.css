@@ -24,6 +24,14 @@ a, button {
     color:#000000!important;
 }
 
+.App-body nav {
+    height:100px;
+}
+
+.App-body .navbar-brand {
+    margin-right:35px;
+}
+
 .nav-item {
     border:#666666 1px solid;
     border-radius:5px;
@@ -32,6 +40,20 @@ a, button {
 
 .nav-item:hover {
     background:#666666;
+}
+
+.form-row .form-group {
+    margin-right:10px;
+}
+
+.form-group label, .form-group option, .form-group select {
+    font-size:13px;
+}
+
+.form-row .btn {
+    margin-left:10px!important;
+    max-height:50px;
+    margin-top:10px;
 }
 
 #cardholder {
