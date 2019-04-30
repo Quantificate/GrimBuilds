@@ -17,7 +17,8 @@
     "author": "Nandi",
     "primaryskill": "Eye of Reckoning",
     "link": "https://www.grimtools.com/calc/O2GXQknV",
-    "purpose": "Shattered Realms/Crucible"
+    "purpose": "Shattered Realms/Crucible",
+    "blurb": "Here u can lvl whatever u like."
   },
   {
     "id": "2",
@@ -37,7 +38,8 @@
     "author": "Sa10",
     "primaryskill": "Eye of Reckoning",
     "link": "https://www.grimtools.com/calc/O2GXqMlV",
-    "purpose": "Shattered Realms/Crucible"
+    "purpose": "Shattered Realms/Crucible",
+    "blurb": "If you don't like judgment, is not mandatory on the build"
   },
   {
     "id": "3",
@@ -57,7 +59,8 @@
     "author": "Cmak414",
     "primaryskill": "Mortar Trap",
     "link": "https://www.grimtools.com/calc/62a96dX2 ",
-    "purpose": "Shattered Realms/Crucible"
+    "purpose": "Shattered Realms/Crucible",
+    "blurb": "Tank damage with minimal kiting. Enter fight with main hand setup casting mortar traps/debufs/seal until 6-7 traps are up."
   },
   {
     "id": "4",
@@ -77,6 +80,49 @@
     "author": "veretragna",
     "primaryskill": "Cadence",
     "link": "https://www.grimtools.com/calc/YVW8k7LZ ",
-    "purpose": "Shattered Realms/Crucible"
+    "purpose": "Shattered Realms/Crucible",
+    "blurb": "Main damage skill of this build is Cadence supported by WPS skills such as Execution."
+  },
+  {
+    "id": "5",
+    "charname": "Warden Blitzkrieg",
+    "class": "Battlemage",
+    "mastery1": "Soldier",
+    "mastery2": "Arcanist",
+    "damagetype": "Aether",
+    "activeskills": "stuuf",
+    "passiveskills": "other stuff",
+    "playstyle": "2H Melee",
+    "version": "1.1.1.2",
+    "gearreq": "7",
+    "cruci": "1",
+    "srlevel": "1",
+    "guide": "Stuff and things.",
+    "author": "Tykune",
+    "primaryskill": "Cadence",
+    "link": "https://www.grimtools.com/calc/qNYxo1WZ",
+    "purpose": "Unknown",
+    "blurb": "Stuff and things."
+  },
+  {
+    "id": "6",
+    "charname": "Khorne",
+    "class": "Death Knight",
+    "mastery1": "Soldier",
+    "mastery2": "Necromancer",
+    "damagetype": "Vitality",
+    "activeskills": "Reaping Arc, Bone Harvest, Siphon Souls, Bloodthirster, Vampiric Shadows",
+    "passiveskills": "Soul of Nazaran, Field Command, Counter Strike, Spectral Binding, Harbinger of Souls",
+    "playstyle": "Sword and Board",
+    "version": "1.1.1.2",
+    "gearreq": "8",
+    "cruci": "1",
+    "srlevel": "15",
+    "guide": "Immortal vampire facetank all the things. I've tanked 3 bosses and 2 elites at the same time in SR, and you can too!",
+    "author": "Quantificate",
+    "primaryskill": "Reaping Arc",
+    "link": "https://www.grimtools.com/calc/4VxekKaZ ",
+    "purpose": "Farming",
+    "blurb": "Wanna be an immortal vampire?"
   }
 ]

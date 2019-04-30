@@ -168,7 +168,7 @@ class App extends Component {
                         <Card.Img variant="top" src="/images/placehold.png" />
                         <Card.Body>
                             <Card.Title>{build.charname}</Card.Title>
-                            <Card.Text>Now with JSON!</Card.Text>
+                            <Card.Text>{build.blurb}</Card.Text>
                         </Card.Body>
                         <ListGroup className="list-group-flush">
                             <ListGroupItem>{build.class}</ListGroupItem>

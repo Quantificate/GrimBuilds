@@ -1,5 +1,5 @@
 body {
-    background:#666666;
+    background:#444444;
 }
 
 nav {
@@ -9,6 +9,11 @@ nav {
 
 a, button {
     color:#eeeeee!important;
+}
+
+.dropdown-menu {
+    max-height:200px!important;
+    overflow-y:scroll;
 }
 
 .dropdown-menu a {
