@@ -26,7 +26,7 @@ class App extends Component {
         <div className="App">
           <header className="App-header">
             <Navbar bg="dark" expand="lg">
-                <Navbar.Brand href="#home">Grim Builds</Navbar.Brand>
+                <Navbar.Brand href="#home">Grim Builds <span>(alpha)</span></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
@@ -109,11 +109,12 @@ class App extends Component {
                             <NavDropdown.Item href="#">Caster</NavDropdown.Item>
                             <NavDropdown.Item href="#">Pets</NavDropdown.Item>
                             <NavDropdown.Item href="#">Retaliation</NavDropdown.Item>
+                            <NavDropdown.Item href="#">Hybrid</NavDropdown.Item>
                         </NavDropdown>
                         <NavDropdown title="Purpose" id="purpose-nav-dropdown">
                             <NavDropdown.Item href="#">Main Campaign</NavDropdown.Item>
                             <NavDropdown.Item href="#">Leveling</NavDropdown.Item>
-                            <NavDropdown.Item href="#">Endgame Bosses</NavDropdown.Item>
+                            <NavDropdown.Item href="#">Endgame</NavDropdown.Item>
                             <NavDropdown.Item href="#">Shattered Realms/Crucible</NavDropdown.Item>
                             <NavDropdown.Item href="#">Farming</NavDropdown.Item>
                             <NavDropdown.Item href="#">New Players</NavDropdown.Item>
@@ -172,12 +173,14 @@ class App extends Component {
                         </Card.Body>
                         <ListGroup className="list-group-flush">
                             <ListGroupItem>{build.class}</ListGroupItem>
+                            <ListGroupItem>{build.mastery1} {build.mastery2}</ListGroupItem>
                             <ListGroupItem>{build.purpose}</ListGroupItem>
                             <ListGroupItem>{build.playstyle}</ListGroupItem>
                             <ListGroupItem>{build.damagetype}</ListGroupItem>
+                            <ListGroupItem>By: {build.author}</ListGroupItem>
                         </ListGroup>
                         <Card.Body>
-                            <Card.Link href={build.link}>Grim Tools</Card.Link>
+                            <Card.Link href={build.link} target="_blank">Grim Tools</Card.Link>
                         </Card.Body>
                     </Card>
                     )}

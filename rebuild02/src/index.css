@@ -11,6 +11,10 @@ a, button {
     color:#eeeeee!important;
 }
 
+.navbar-brand span {
+    font-size:12px;
+}
+
 .dropdown-menu {
     max-height:200px!important;
     overflow-y:scroll;
@@ -48,8 +52,11 @@ a, button {
 
 .list-group-item {
     background:#333333!important;
+    font-size:13px;
 }
 
 .card a:hover {
     color:#55dd79!important;
 }
+
+
