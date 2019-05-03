@@ -54,7 +54,7 @@ class App extends Component {
                 </Navbar.Collapse>
             </Navbar>
           </header>
-          <body className="App-body">
+          <div className="App-body">
             <Navbar bg="dark" expand="lg">
                 <Navbar.Brand href="#home">Filters</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -212,7 +212,7 @@ class App extends Component {
                     renderResults={results => (
                         <div className="row">
                         {results.map(build =>
-                        <Card style={{width:'15rem'}}>
+                        <Card key={build.id} style={{width:'15rem'}}>
                             <Card.Img variant="top" src="/images/placehold.png" />
                             <Card.Body>
                                 <Card.Title>{build.charname}</Card.Title>
@@ -234,7 +234,7 @@ class App extends Component {
                         </div>
                         )} />
             </div>
-          </body>
+          </div>
         </div>
 
   );
