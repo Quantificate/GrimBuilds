@@ -1,19 +1,81 @@
 import React, {Component} from 'react';
 import {Card, Nav, Navbar, NavDropdown, Form, FormControl, Button, ListGroup, ListGroupItem} from 'react-bootstrap';
-import SearchResults from 'react-filter-search';
-import FilterResults from 'react-filter-search';
+import BuildCard from './BuildCard'
+import * as filterOptions from './Filters.json'
 import './App.css';
 
 //TODO: Conditionals for different info items based on Purpose.
 //TODO: Code for creating cards generically, then filling with database info.
+
+const renderOption = opt => <option key={opt} value={opt}>{opt}</option>
+
+const filterCategories = [
+    "class",
+    "mastery",
+    "playstyle",
+    "purpose",
+    "damagetype",
+    "srlevel",
+    "cruci",
+    "gearreq"
+]
+
+/* filter categories with a single string value in the build representation
+ * TODO maybe use a uniform representation for all filterable build attributes
+ */
+const unaryFilterCategories = [
+    "class",
+    "playstyle",
+    "purpose",
+    "damagetype",
+    "srlevel",
+    "cruci",
+    "gearreq"
+]
+
+const initFilterState = {
+    class: '',
+    mastery: '',
+    playstyle: '',
+    purpose: '',
+    damagetype: '',
+    srlevel: '',
+    cruci: '',
+    gearreq: '',
+}
+
+const filterBuilds = (filters, searchText) => build => {
+    /* Right now search text is searched as a single phrase. We'll also hit
+     * false positives between field boundaries, see `_all` property assignment
+     * for why. TODO more sophisticated server-side search */
+    searchText = searchText.trim()
+    return unaryFilterCategories.every(
+        filterCategory =>
+            filters[filterCategory] === '' ||
+            filters[filterCategory] === build[filterCategory]
+        ) && (searchText === '' || build._all.indexOf(searchText) >= 0)
+}
+
+const upper1 = s => s[0].toUpperCase() + s.slice(1)
 
 class App extends Component {
     constructor(){
         super();
         this.state = {
             builds:[],
-            value:''
+            filters: initFilterState,
+            searchText: '',
         };
+        /* pre-bind onChange handlers for each filter category */
+        filterCategories.forEach(filterCategory =>
+            this['onChange'+upper1(filterCategory)] = this.onChangeFilter.bind(this, filterCategory)
+        )
+    }
+    onChangeFilter(filterCategory, ev) {
+        console.log('changing filter for', filterCategory, 'to', ev.value)
+        this.setState({
+            filters: { ...this.state.filters, [filterCategory]: ev.target.value }
+        })
     }
     componentDidMount() {
         fetch('/builds')
@@ -22,16 +84,36 @@ class App extends Component {
             return res.json()
         })
         .then(builds => {
+            /* For our prototype, we want search text to apply to every field
+             * in the build, so let's create a field which concatenates every
+             * field in the build */
+            builds.forEach(build =>
+                build._all = Object.keys(build).map(
+                    key => build[key]
+                ).join(' ')
+            )
             console.log(builds);
             this.setState({ builds })
         });
     }
-    handleValueChange = event => {
-        const {value} = event.target;
-        this.setState({value});
-    };
+    onSearchBarChange = ev => {
+        this.setState({
+            searchText: ev.target.value
+        })
+    }
     render() {
-        const {builds, value} = this.state;
+        /* Filter builds down */
+        const builds = this.state.builds.filter(
+            filterBuilds(
+                this.state.filters,
+                this.state.searchText,
+            )
+        )
+
+        const renderResults = results => <div className="row">{
+            results.map(BuildCard)
+        }</div>
+
       return (
         <div className="App">
           <header className="App-header">
@@ -49,156 +131,72 @@ class App extends Component {
                         </NavDropdown>
                     </Nav>
                     <Form inline>
-                        <FormControl type="text" placeholder="Search Builds" className="mr-sm-2" value={value} onChange={this.handleValueChange} />
+                        <FormControl type="text" placeholder="Search Builds" className="mr-sm-2" onChange={this.onSearchBarChange} />
                     </Form>
                 </Navbar.Collapse>
             </Navbar>
           </header>
-          <body className="App-body">
+          <div className="App-body">
             <Navbar bg="dark" expand="lg">
                 <Navbar.Brand href="#home">Filters</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Form className="mr-auto" value={value} onChange={this.handleValueChange}>
+                    <Form className="mr-auto">
                         <Form.Row>
                         <Form.Group controlId="formClass">
                             <Form.Label>Class</Form.Label>
-                            <Form.Control as="select">
-                                <option>Classes</option>
-                                <option>Apostate</option>
-                                <option>Archon</option>
-                                <option>Battlemage</option>
-                                <option>Blademaster</option>
-                                <option>Cabalist</option>
-                                <option>Commando</option>
-                                <option>Conjurer</option>
-                                <option>Death Knight</option>
-                                <option>Deceiver</option>
-                                <option>Defiler</option>
-                                <option>Dervish</option>
-                                <option>Druid</option>
-                                <option>Elementalist</option>
-                                <option>Infiltrator</option>
-                                <option>Mage Hunter</option>
-                                <option>Oppressor</option>
-                                <option>Paladin</option>
-                                <option>Purifier</option>
-                                <option>Pyromancer</option>
-                                <option>Reaper</option>
-                                <option>Ritualist</option>
-                                <option>Saboteur</option>
-                                <option>Sentinel</option>
-                                <option>Shieldbreaker</option>
-                                <option>Sorcerer</option>
-                                <option>Spellbinder</option>
-                                <option>Spellbreaker</option>
-                                <option>Tactician</option>
-                                <option>Templar</option>
-                                <option>Trickster</option>
-                                <option>Vindicator</option>
-                                <option>Warder</option>
-                                <option>Warlock</option>
-                                <option>Warlord</option>
-                                <option>Witch Hunter</option>
-                                <option>Witchblade</option>
+                            <Form.Control as="select" onChange={this.onChangeClass}>
+                                <option key="none" value="">No Filter</option>
+                                {filterOptions.class.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formMastery">
                             <Form.Label>Mastery</Form.Label>
-                            <Form.Control as="select">
-                                <option>Masteries</option>
-                                <option>Soldier</option>
-                                <option>Demolitionist</option>
-                                <option>Occultist</option>
-                                <option>Nightblade</option>
-                                <option>Arcanist</option>
-                                <option>Shaman</option>
-                                <option>Inquisitor</option>
-                                <option>Necromancer</option>
-                                <option>Oathkeeper</option>
+                            <Form.Control as="select" onChange={this.onChangeMastery}>
+                                <option key="none" value="">No Filter</option>
+                                {filterOptions.mastery.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formStyle">
                             <Form.Label>Playstyle</Form.Label>
-                            <Form.Control as="select">
-                                <option>Styles</option>
-                                <option>DW Melee</option>
-                                <option>DW Ranged</option>
-                                <option>2H Melee</option>
-                                <option>2H Ranged</option>
-                                <option>Sword and Board</option>
-                                <option>Caster</option>
-                                <option>Pets</option>
-                                <option>Retaliation</option>
-                                <option>Hybrid</option>
+                            <Form.Control as="select" onChange={this.onChangePlaystyle}>
+                                <option key="none" value="">No Filter</option>
+                                {filterOptions.playstyle.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formPurpose">
                             <Form.Label>Purpose</Form.Label>
-                            <Form.Control as="select">
-                                <option>Purposes</option>
-                                <option>Main Campaign</option>
-                                <option>Leveling</option>
-                                <option>Endgame</option>
-                                <option>Shattered Realms/Crucible</option>
-                                <option>Farming</option>
-                                <option>New Players</option>
+                            <Form.Control as="select" onChange={this.onChangePurpose}>
+                                <option key="none" value="">No Filter</option>
+                                {filterOptions.purpose.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formDamage">
                             <Form.Label>Damage Type</Form.Label>
-                            <Form.Control as="select">
-                                <option>Damage Types</option>
-                                <option>Physical</option>
-                                <option>Piercing</option>
-                                <option>Fire</option>
-                                <option>Cold</option>
-                                <option>Lightning</option>
-                                <option>Elemental</option>
-                                <option>Acid</option>
-                                <option>Bleeding</option>
-                                <option>Vitality</option>
-                                <option>Chaos</option>
+                            <Form.Control as="select" onChange={this.onChangeDamage}>
+                                <option key="none" value="">No Filter</option>
+                                {filterOptions.damagetype.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formSR">
                             <Form.Label>Shattered Realms</Form.Label>
-                            <Form.Control as="select">
-                                <option>SR Ability</option>
-                                <option>SR 1+</option>
-                                <option>SR 15+</option>
-                                <option>SR 25+</option>
-                                <option>SR 50+</option>
-                                <option>SR 75+</option>
+                            <Form.Control as="select" onChange={this.onChangeSr}>
+                                <option key="none" value="">No Filter</option>
+                                {filterOptions.srlevel.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formCruci">
                             <Form.Label>Crucible</Form.Label>
-                            <Form.Control as="select">
-                                <option>Crucible Ability</option>
-                                <option>Crucible 1+</option>
-                                <option>Crucible 15+</option>
-                                <option>Crucible 25+</option>
-                                <option>Crucible 50+</option>
-                                <option>Crucible 75+</option>
-                                <option>Crucible 100+</option>
-                                <option>Crucible 125+</option>
-                                <option>Crucible 150+</option>
-                                <option>Crucible 170</option>
+                            <Form.Control as="select" onChange={this.onChangeCruci}>
+                                <option key="none" value="">No Filter</option>
+                                {filterOptions.cruci.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formGear">
                             <Form.Label>Gear Requirements</Form.Label>
-                            <Form.Control as="select">
-                                <option>Gear Required</option>
-                                <option>100% Vendors</option>
-                                <option>Vendors/Rep Blueprints</option>
-                                <option>Vendors/Dropped Blueprints</option>
-                                <option>Light Farming Legendaries</option>
-                                <option>Moderate Farming Legendaries</option>
-                                <option>Heavy Farming Legendaries</option>
-                                <option>1 MI Farming</option>
-                                <option>2+ MI Farming</option>
+                            <Form.Control as="select" onChange={this.onChangeGear}>
+                                <option key="none" value="">No Filter</option>
+                                {filterOptions.gearreq.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                     </Form.Row>
@@ -207,34 +205,9 @@ class App extends Component {
                 </Navbar.Collapse>
             </Navbar>
             <div className="container" id="cardholder">
-
-                    <SearchResults value={value} data={builds}
-                    renderResults={results => (
-                        <div className="row">
-                        {results.map(build =>
-                        <Card style={{width:'15rem'}}>
-                            <Card.Img variant="top" src="/images/placehold.png" />
-                            <Card.Body>
-                                <Card.Title>{build.charname}</Card.Title>
-                                <Card.Text>{build.blurb}</Card.Text>
-                            </Card.Body>
-                            <ListGroup className="list-group-flush">
-                                <ListGroupItem>{build.class}</ListGroupItem>
-                                <ListGroupItem>{build.mastery1} {build.mastery2}</ListGroupItem>
-                                <ListGroupItem>{build.purpose}</ListGroupItem>
-                                <ListGroupItem>{build.playstyle}</ListGroupItem>
-                                <ListGroupItem>{build.damagetype}</ListGroupItem>
-                                <ListGroupItem>By: {build.author}</ListGroupItem>
-                            </ListGroup>
-                            <Card.Body>
-                                <Card.Link href={build.link} target="_blank">Grim Tools</Card.Link>
-                            </Card.Body>
-                        </Card>
-                        )}
-                        </div>
-                        )} />
+                {renderResults(builds)}
             </div>
-          </body>
+          </div>
         </div>
 
   );
