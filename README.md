@@ -10,3 +10,28 @@ rebuild02 is the active working directory.
 static, templates, and main.py are all the quick mockup I did in flask.
 
 Website/App for Browsing Grim Dawn character builds.
+
+## Setup
+
+This section is quite incomplete!
+
+### MariaDB
+
+Note: MariaDB integration is not even started yet!
+
+On Debian and its derivatives derivatives (Ubuntu, Mint, etc.)
+
+Install MariaDB:
+
+```
+sudo apt install mariadb-server
+```
+
+Next start the command line client with `mysql` and create a user for your
+application server. Be sure to use another password.
+
+```
+create user 'grimbuilds'@'localhost' identified by 'DONT USE THIS PASSWORD';
+```
+
+
