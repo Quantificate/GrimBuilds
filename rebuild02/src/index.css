@@ -7,8 +7,12 @@ nav {
     color:#eeeeee;
 }
 
-a, button {
+a {
     color:#eeeeee!important;
+}
+
+button {
+    color:#55dd79!important;
 }
 
 .navbar-brand span {

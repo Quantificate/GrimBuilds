@@ -43,6 +43,13 @@ class FaqModal extends Component {
                 <p><span>General MI Note</span>: I am only counting MIs that come from specific enemies as hard-to-farm MIs. MIs from enemies that there are countless numbers of are not counted here.</p>
                 <h4>Crucible/Shattered Realms</h4>
                 <p>These are the maximum tested levels that can be cleared with the build. A lot of times, having a 1+ rating does not mean the build sucks, it just means it has not been tested.</p>
+                <h4>Purposes</h4>
+                <p><span>Leveling</span>: Exactly what it sounds like, use this to level to 100.</p>
+                <p><span>New Players</span>: This is for new players without a huge stash of gear.</p>
+                <p><span>Farming</span>: These builds are good for quickly clearing high-loot areas.</p>
+                <p><span>Main Campaign</span>: These builds are designed to kill specific bosses or challenges present in the main storyline quests.</p>
+                <p><span>Endgame</span>: These are designed to clear the "main" content such as nemesis bosses, Celestials, or the "roguelike" dungeons.</p>
+                <p><span>Shattered Reamls/Crucible</span>: These builds are designed for high-speed, high-level clearing of these extra hard modes.</p>
             </Modal.Body>
             <Modal.Footer><Button variant="secondary" onClick={this.handleClose}>Close</Button></Modal.Footer>
         </Modal>
