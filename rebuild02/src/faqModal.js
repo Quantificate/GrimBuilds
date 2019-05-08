@@ -40,6 +40,7 @@ class FaqModal extends Component {
                 <p><span>Heavy Farming Legendaries</span>: Almost all farmed legendaries.</p>
                 <p><span>1 MI Farming</span>: Requires a specific Monster Infrequent, usually with specific affixes.</p>
                 <p><span>2+ MI Farming</span>: Just like 1 MI, but with multiple Infrequents.</p>
+                <p><span>General MI Note</span>: I am only counting MIs that come from specific enemies as hard-to-farm MIs. MIs from enemies that there are countless numbers of are not counted here.</p>
                 <h4>Crucible/Shattered Realms</h4>
                 <p>These are the maximum tested levels that can be cleared with the build. A lot of times, having a 1+ rating does not mean the build sucks, it just means it has not been tested.</p>
             </Modal.Body>

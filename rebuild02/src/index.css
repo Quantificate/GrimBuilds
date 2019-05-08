@@ -84,6 +84,7 @@ a, button {
 .modal-content {
     background:#333333;
     color:#eeeeee;
+    font-family: "Special Elite", serif;
 }
 
 .modal-title, .modal-content h4 {
