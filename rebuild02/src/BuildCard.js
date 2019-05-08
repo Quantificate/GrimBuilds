@@ -12,11 +12,16 @@ const BuildCard = build => <Card key={build.id} style={{width:'15rem'}}>
       <ListGroupItem>{build.mastery1} {build.mastery2}</ListGroupItem>
       <ListGroupItem>{build.purpose}</ListGroupItem>
       <ListGroupItem>{build.playstyle}</ListGroupItem>
+        <ListGroupItem>{build.primaryskill}</ListGroupItem>
       <ListGroupItem>{build.damagetype}</ListGroupItem>
+        <ListGroupItem>{build.cruci}</ListGroupItem>
+        <ListGroupItem>{build.srlevel}</ListGroupItem>
+        <ListGroupItem>{build.gearreq}</ListGroupItem>
       <ListGroupItem>By: {build.author}</ListGroupItem>
   </ListGroup>
   <Card.Body>
-      <Card.Link href={build.link} target="_blank">Grim Tools</Card.Link>
+        <p><Card.Link href={build.guide} target="_blank">Build Guide</Card.Link></p>
+      <p><Card.Link href={build.link} target="_blank">Grim Tools</Card.Link></p>
   </Card.Body>
 </Card>
 

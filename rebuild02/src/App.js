@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Card, Nav, Navbar, NavDropdown, Form, FormControl, Button, ListGroup, ListGroupItem} from 'react-bootstrap';
 import BuildCard from './BuildCard'
+import FaqModal from './faqModal'
 import * as filterOptions from './Filters.json'
 import './App.css';
 
@@ -129,6 +130,7 @@ class App extends Component {
                             <NavDropdown.Divider />
                             <NavDropdown.Item>Submit Your Build</NavDropdown.Item>
                         </NavDropdown>
+                        <FaqModal />
                     </Nav>
                     <Form inline>
                         <FormControl type="text" placeholder="Search Builds" className="mr-sm-2" onChange={this.onSearchBarChange} />
@@ -180,7 +182,7 @@ class App extends Component {
                         </Form.Group>
                         <Form.Group controlId="formSR">
                             <Form.Label>Shattered Realms</Form.Label>
-                            <Form.Control as="select" onChange={this.onChangeSr}>
+                            <Form.Control as="select" onChange={this.onChangeSrlevel}>
                                 <option key="none" value="">No Filter</option>
                                 {filterOptions.srlevel.map(renderOption)}
                             </Form.Control>
@@ -194,7 +196,7 @@ class App extends Component {
                         </Form.Group>
                         <Form.Group controlId="formGear">
                             <Form.Label>Gear Requirements</Form.Label>
-                            <Form.Control as="select" onChange={this.onChangeGear}>
+                            <Form.Control as="select" onChange={this.onChangeGearreq}>
                                 <option key="none" value="">No Filter</option>
                                 {filterOptions.gearreq.map(renderOption)}
                             </Form.Control>

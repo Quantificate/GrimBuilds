@@ -81,4 +81,20 @@ a, button {
     color:#55dd79!important;
 }
 
+.modal-content {
+    background:#333333;
+    color:#eeeeee;
+}
 
+.modal-title, .modal-content h4 {
+    color:#55dd79!important;
+}
+
+.modal-content p {
+    font-size:14px;
+}
+
+.modal-content span {
+    color:#55dd79!important;
+    font-style:italic;
+}
