@@ -25,7 +25,7 @@ class FaqModal extends Component {
         return (
         <>
         <Button variant="secondary" onClick={this.handleShow}>FAQ</Button>
-        <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal size="lg" show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>GrimBuilds FAQ</Modal.Title>
             </Modal.Header>

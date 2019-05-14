@@ -13,3 +13,7 @@ Release:
 Future:
   Save Game Uploads/Parsing
   Full Database with Gear? Or does that step on grimtools.com's toes too much?
+
+Questions:
+  Conditional Images in BuildGuide (ie: if (this.props.build.playstyle = "Caster"){<img src="/castericon.png" />}; )?
+  Conditional Styles in BuildGuide (ie: if (this.props.build.damagetype = "Fire"){style="color:red"}; )?

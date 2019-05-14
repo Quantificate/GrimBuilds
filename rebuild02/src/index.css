@@ -1,5 +1,5 @@
 body {
-    background:#444444;
+    background:url('.\images\prism.png') center repeat fixed;
 }
 
 nav {
@@ -65,7 +65,7 @@ button {
 }
 
 .card {
-    background:#333333;
+    background:#343a40;
     color:#eeeeee;
     font-family:"Special Elite", serif;
     padding:3px;
@@ -77,7 +77,7 @@ button {
 }
 
 .list-group-item {
-    background:#333333!important;
+    background:#343a40!important;
     font-size:13px;
 }
 
@@ -112,4 +112,40 @@ button {
 
 .randButton {
   margin-left:10px;
+}
+
+#leftTitle {
+  float:left;
+  width:200px;
+  font-size:28px;
+}
+
+#rightTitle {
+  margin-left:440px;
+}
+
+#bigstuff {
+  border-bottom:#cccccc 1px solid;
+}
+
+#basics, #allSkills, #advanced {
+  padding-top:10px;
+  border-bottom:#cccccc 1px solid;
+}
+
+#guide {
+  padding-top:10px;
+}
+
+footer {
+  background: #333333;
+  color:#eeeeee;
+  font-family: "Special Elite", serif;
+  font-size:10px;
+}
+
+footer div {
+  text-align:center;
+  line-height:8px;
+  padding:10px;
 }

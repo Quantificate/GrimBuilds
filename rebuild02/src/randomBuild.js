@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Modal, Card, ListGroup, ListGroupItem} from 'react-bootstrap';
+import BuildGuide from './BuildGuide'
 
 // TODO: Change Modal handlers to work in App.js, not within the component, see hdon's messages in Discord
 
@@ -32,7 +33,7 @@ class RandomBuild extends Component {
         return (
         <>
         <Button variant="secondary" className="randButton" onClick={this.handleShow}>Random Build</Button>
-        <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal id="randModal" show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>You got a {this.state.randBuild.class}!</Modal.Header>
             <Card key={this.state.randBuild.id} style={{width:'100%'}}>
               <Card.Img variant="top" src="/images/placehold.png" />
@@ -53,8 +54,7 @@ class RandomBuild extends Component {
                   <ListGroupItem>By: {this.state.randBuild.author}</ListGroupItem>
               </ListGroup>
               <Card.Body>
-                <p><Card.Link href={this.state.randBuild.guide} target="_blank">Build Guide</Card.Link></p>
-                <p><Card.Link href={this.state.randBuild.link} target="_blank">Grim Tools</Card.Link></p>
+                <BuildGuide build={this.state.randBuild} />
               </Card.Body>
             </Card>
         </Modal>
