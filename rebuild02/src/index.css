@@ -116,12 +116,12 @@ button {
 
 #leftTitle {
   float:left;
-  width:200px;
+  width:400px;
   font-size:28px;
 }
 
 #rightTitle {
-  margin-left:440px;
+  margin-left:240px;
 }
 
 #bigstuff {
@@ -131,10 +131,12 @@ button {
 #basics, #allSkills, #advanced {
   padding-top:10px;
   border-bottom:#cccccc 1px solid;
+  font-family: sans-serif;
 }
 
 #guide {
   padding-top:10px;
+  font-family: sans-serif;
 }
 
 footer {
