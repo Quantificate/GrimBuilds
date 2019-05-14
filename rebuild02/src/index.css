@@ -103,3 +103,13 @@ button {
     color:#55dd79!important;
     font-style:italic;
 }
+
+.modal-content .card-img-top {
+  max-height:250px;
+  max-width:250px;
+  margin:auto;
+}
+
+.randButton {
+  margin-left:10px;
+}

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Card, Nav, Navbar, NavDropdown, Form, FormControl, Button, ListGroup, ListGroupItem} from 'react-bootstrap';
 import BuildCard from './BuildCard'
 import FaqModal from './faqModal'
+import RandomBuild from './randomBuild'
 import * as filterOptions from './Filters.json'
 import './App.css';
 
@@ -131,6 +132,7 @@ class App extends Component {
                             <NavDropdown.Item>Submit Your Build</NavDropdown.Item>
                         </NavDropdown>
                         <FaqModal />
+                        <RandomBuild build={this.state.builds} />
                     </Nav>
                     <Form inline>
                         <FormControl type="text" placeholder="Search Builds" className="mr-sm-2" onChange={this.onSearchBarChange} />
