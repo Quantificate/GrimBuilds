@@ -1,0 +1,15 @@
+Alpha:
+  Done?
+
+Beta:
+  Improve Search/Filter functionality.
+  Add User Submissions.
+  Switch to relational database (probably MariaDB).
+
+Release:
+  Voting System
+  Top Builds, possibly by Class.
+
+Future:
+  Save Game Uploads/Parsing
+  Full Database with Gear? Or does that step on grimtools.com's toes too much?
