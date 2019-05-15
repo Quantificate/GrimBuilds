@@ -36,6 +36,10 @@ class FaqModal extends Component {
                 <p><span>Retaliation</span>: Primarly deals damage through getting hit.</p>
                 <p><span>2H</span>: Two Handed Weapon</p>
                 <h4>Gear Requirements</h4>
+                <p><span>100% Vendors</span>: All items can be purchased at a vendor.</p>
+                <p><span>Vendors/Rep Blueprints</span>: All vendored items, or crafted items from blueprints that can be bought.</p>
+                <p><span>Vendors/Dropped Blueprints</span>: Mostly vendor items, some crafted items from farmable blueprints.</p>
+                <p><span>Light Farming Legendaries</span>: Mostly blues/crafted items, some legendaries.</p>
                 <p><span>Moderate Farming Legendaries</span>: Mostly legendary items, some epics or vendor/crafted items.</p>
                 <p><span>Heavy Farming Legendaries</span>: Almost all farmed legendaries.</p>
                 <p><span>1 MI Farming</span>: Requires a specific Monster Infrequent, usually with specific affixes.</p>

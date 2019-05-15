@@ -13,6 +13,7 @@ a {
 
 button {
     color:#55dd79!important;
+    font-family: 'Roboto', sans-serif;
 }
 
 .navbar-brand span {
@@ -60,6 +61,10 @@ button {
     margin-top:10px;
 }
 
+.form-control {
+  font-family: 'Roboto', sans-serif;
+}
+
 #cardholder {
     margin-top:10px;
 }
@@ -67,13 +72,17 @@ button {
 .card {
     background:#343a40;
     color:#eeeeee;
-    font-family:"Special Elite", serif;
     padding:3px;
     margin:5px;
 }
 
+.card-title {
+  font-family: 'Special Elite', serif;
+}
+
 .card p {
     font-size:12px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .list-group-item {
@@ -97,6 +106,7 @@ button {
 
 .modal-content p {
     font-size:14px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .modal-content span {
@@ -111,7 +121,7 @@ button {
 }
 
 .randButton {
-  margin-left:10px;
+  margin:0px 10px;
 }
 
 #leftTitle {
@@ -150,4 +160,23 @@ footer div {
   text-align:center;
   line-height:8px;
   padding:10px;
+}
+
+#submitModal .form-group {
+  width:75%;
+  margin:auto;
+}
+
+#submitModal button {
+  margin-top:10px;
+  float:right;
+}
+
+#masterygroup .form-control, #extras .form-control {
+  margin-top:5px;
+}
+
+#bigstuff .btn {
+  font-family: 'Special Elite', serif !important;
+  color:#55dd79!important;
 }

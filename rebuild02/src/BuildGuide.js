@@ -25,7 +25,7 @@ class BuildGuide extends Component {
 
         return (
         <>
-        <Button variant="secondary" onClick={this.handleShow}>Full Guide</Button>
+        <Button variant="outline-secondary" onClick={this.handleShow}>Full Guide</Button>
         <Modal size="lg" show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title id="buildTitle"><span id="leftTitle">{this.props.build.charname}</span><span id="rightTitle">{this.props.build.version}</span></Modal.Title>
@@ -34,6 +34,7 @@ class BuildGuide extends Component {
             <div className="container-fluid" id="bigstuff">
               <h4>{this.props.build.class}</h4>
               <h5>{this.props.build.purpose}</h5>
+              <p><Button variant="outline-secondary" href={this.props.build.link} target="_blank">Grim Tools</Button></p>
             </div>
             <div className="container-fluid" id="basics">
               <p>Damage Type: {this.props.build.damagetype}</p>
@@ -52,7 +53,6 @@ class BuildGuide extends Component {
             </div>
             <div className="container-fluid" id="guide">
               <p>{this.props.build.guide}</p>
-              <p><Button variant="outline-secondary" href={this.props.build.link} target="_blank">Grim Tools</Button></p>
             </div>
           </Modal.Body>
         </Modal>
