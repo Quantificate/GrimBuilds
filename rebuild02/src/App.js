@@ -81,7 +81,7 @@ class App extends Component {
         })
     }
     componentDidMount() {
-        fetch('/builds')
+        fetch('/builds-all')
         .then(res => {
             console.log(res);
             return res.json()
