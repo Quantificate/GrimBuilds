@@ -67,7 +67,7 @@ class SubmitForm extends Component {
       this.setState({
         submitting: true
       })
-      fetch('/builds', {
+      fetch('/api/builds', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
