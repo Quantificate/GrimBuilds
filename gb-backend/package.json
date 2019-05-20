@@ -8,7 +8,8 @@
     "express": "^4.16.4",
     "json-2-csv": "^3.5.3",
     "jsonfile": "^5.0.0",
-    "mysql2": "^1.6.5"
+    "mysql2": "^1.6.5",
+    "ramda": "^0.26.1"
   },
   "scripts": {
     "start": "node ./index"

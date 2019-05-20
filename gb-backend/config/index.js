@@ -1,1 +1,5 @@
-module.exports = Object.assign({}, require('./defaults'), require('./local'))
+const R = require('ramda')
+module.exports = R.mergeDeepRight(
+  require('./defaults'),
+  require('./local')
+)
