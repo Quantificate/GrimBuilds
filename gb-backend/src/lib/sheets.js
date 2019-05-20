@@ -1,3 +1,5 @@
+const debug = require('debug')('grimbuilds:backend:lib:sheets')
+
 const masteries = {
   "Soldier": {
     "Demolitionist": "Commando",
@@ -92,9 +94,9 @@ const masteries = {
 }
 
 const getClassFromMasteries = (mastery1, mastery2) => {
-  console.log(mastery1, mastery2)
-  console.log(masteries[mastery1])
-  console.log(masteries[mastery1][mastery2])
+  debug(mastery1, mastery2)
+  debug(masteries[mastery1])
+  debug(masteries[mastery1][mastery2])
   return masteries[mastery1][mastery2]
 }
 module.exports.getClassFromMasteries = getClassFromMasteries

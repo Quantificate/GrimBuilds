@@ -17,7 +17,6 @@ function createPool(config){
 //workaround for open issue https://github.com/mysqljs/mysql/issues/1507
 
 function authSwitchHandler({pluginName}, cb) {
-  console.log(pluginName);
   if (pluginName === 'auth_socket'){
     cb(null, Buffer.alloc(0));
   } else {
