@@ -199,3 +199,24 @@ footer div {
     height:200px;
   }
 }
+
+@media (max-width:450px) {
+  .App-body .navbar {
+    height:285px;
+  }
+  .card {
+    margin:5px auto;
+    width:90%!important;
+    text-align:center;
+  }
+  .card-img-top {
+    max-width:50%;
+    margin:auto;
+  }
+}
+
+@media (max-width: 350px) {
+  .App-body .navbar {
+    height: 380px!important;
+  }
+}
