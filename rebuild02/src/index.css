@@ -33,6 +33,15 @@ button {
     height:100px;
 }
 
+select {
+  font-size:12px!important;
+  max-width:175px;
+}
+
+option {
+  font-size:12px!important;
+}
+
 .App-body .navbar-brand {
     margin-right:35px;
 }
@@ -125,7 +134,7 @@ button {
 }
 
 .randButton {
-  margin:0px 10px;
+  border-radius:none!important;
 }
 
 #leftTitle {
@@ -183,4 +192,10 @@ footer div {
 #bigstuff .btn {
   font-family: 'Special Elite', serif !important;
   color:#55dd79!important;
+}
+
+@media (max-width:992px) {
+  .App-body .navbar {
+    height:200px;
+  }
 }

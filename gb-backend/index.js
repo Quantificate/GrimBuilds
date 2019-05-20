@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 
 app.listen(port, () => console.log(`Now listening on P ${port}`));
 
-app.get('/builds-all', (req, res, next) => {
+app.get('/api/builds-all', (req, res, next) => {
   container.mariapool.query(`SELECT
     id,
     charname,
@@ -34,6 +34,7 @@ app.get('/builds-all', (req, res, next) => {
     blurb
     FROM builds`)
     .then (resdb => {
+      console.log(resdb[0])
       res.send(resdb[0])
     })
     .catch (err => {
@@ -41,7 +42,7 @@ app.get('/builds-all', (req, res, next) => {
     })
 })
 
-app.post('/builds', (req, res, next) => {
+app.post('/api/builds', (req, res, next) => {
   console.log(req.body)
   //TODO: Validate form data
   const charclass = getClassFromMasteries(req.body.mastery1, req.body.mastery2); //TODO: Fix error: mastery1 is undefined.

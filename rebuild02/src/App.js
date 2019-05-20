@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Card, Nav, Navbar, NavDropdown, Form, FormControl, Button, ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Container, Card, Nav, Navbar, NavDropdown, Form, FormControl, Button, ListGroup, ListGroupItem} from 'react-bootstrap';
 import BuildCard from './BuildCard'
 import FaqModal from './faqModal'
 import RandomBuild from './randomBuild'
@@ -81,7 +81,7 @@ class App extends Component {
         })
     }
     componentDidMount() {
-        fetch('/builds-all')
+        fetch('/api/builds-all')
         .then(res => {
             console.log(res);
             return res.json()
@@ -144,58 +144,50 @@ class App extends Component {
                     <Form className="mr-auto">
                         <Form.Row>
                         <Form.Group controlId="formClass">
-                            <Form.Label>Class</Form.Label>
                             <Form.Control as="select" onChange={this.onChangeClass}>
-                                <option key="none" value="">No Filter</option>
+                                <option key="none" value="">Class</option>
                                 {filterOptions.class.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formMastery">
-                            <Form.Label>Mastery</Form.Label>
                             <Form.Control as="select" onChange={this.onChangeMastery}>
-                                <option key="none" value="">No Filter</option>
+                                <option key="none" value="">Mastery</option>
                                 {filterOptions.mastery.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formStyle">
-                            <Form.Label>Playstyle</Form.Label>
                             <Form.Control as="select" onChange={this.onChangePlaystyle}>
-                                <option key="none" value="">No Filter</option>
+                                <option key="none" value="">Playstyle</option>
                                 {filterOptions.playstyle.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formPurpose">
-                            <Form.Label>Purpose</Form.Label>
                             <Form.Control as="select" onChange={this.onChangePurpose}>
-                                <option key="none" value="">No Filter</option>
+                                <option key="none" value="">Purpose</option>
                                 {filterOptions.purpose.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formDamage">
-                            <Form.Label>Damage Type</Form.Label>
                             <Form.Control as="select" onChange={this.onChangeDamage}>
-                                <option key="none" value="">No Filter</option>
+                                <option key="none" value="">Damage Type</option>
                                 {filterOptions.damagetype.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formSR">
-                            <Form.Label>Shattered Realms</Form.Label>
                             <Form.Control as="select" onChange={this.onChangeSrlevel}>
-                                <option key="none" value="">No Filter</option>
+                                <option key="none" value="">Shattered Realms</option>
                                 {filterOptions.srlevel.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formCruci">
-                            <Form.Label>Crucible</Form.Label>
                             <Form.Control as="select" onChange={this.onChangeCruci}>
-                                <option key="none" value="">No Filter</option>
+                                <option key="none" value="">Crucible</option>
                                 {filterOptions.cruci.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formGear">
-                            <Form.Label>Gear Requirements</Form.Label>
                             <Form.Control as="select" onChange={this.onChangeGearreq}>
-                                <option key="none" value="">No Filter</option>
+                                <option key="none" value="">Gear Requirement</option>
                                 {filterOptions.gearreq.map(renderOption)}
                             </Form.Control>
                         </Form.Group>
