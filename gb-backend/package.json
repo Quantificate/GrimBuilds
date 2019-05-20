@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bluebird": "^3.5.4",
     "body-parser": "^1.19.0",
     "csv": "^5.1.1",
     "debug": "^4.1.1",
