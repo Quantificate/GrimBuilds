@@ -50,7 +50,11 @@ button {
 .form-row .form-group {
     margin-right:10px;
 }
-
+#donateButton {
+  color:#55dd79!important;
+  border-color:#55dd79!important;
+  margin-right:10px;
+}
 .form-group label, .form-group option, .form-group select {
     font-size:13px;
 }

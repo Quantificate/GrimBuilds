@@ -129,6 +129,7 @@ class App extends Component {
                         <RandomBuild build={this.state.builds} />
                         <SubmitForm />
                     </Nav>
+                    <Button variant="outline-secondary" id="donateButton" href="https://paypal.me/theoreticaldev" target="_blank">Donate</Button>
                     <Form inline>
                         <FormControl type="text" placeholder="Search Builds" className="mr-sm-2" onChange={this.onSearchBarChange} />
                     </Form>
