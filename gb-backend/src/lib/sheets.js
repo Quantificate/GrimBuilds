@@ -16,7 +16,8 @@ const masteries = {
     "Shaman": "Elementalist",
     "Inquisitor": "Purifier",
     "Necromancer": "Defiler",
-    "Oathkeeper": "Shieldbreaker"
+    "Oathkeeper": "Shieldbreaker",
+    "Soldier": "Commando"
   },
   "Occultist": {
     "Nightblade": "Witch Hunter",
@@ -24,32 +25,69 @@ const masteries = {
     "Shaman": "Conjurer",
     "Inquisitor": "Deceiver",
     "Necromancer": "Cabalist",
-    "Oathkeeper": "Sentinel"
+    "Oathkeeper": "Sentinel",
+    "Soldier": "Witchblade",
+    "Demolitionist": "Pyromancer"
   },
   "Nightblade": {
     "Arcanist": "Spellbreaker",
     "Shaman": "Trickster",
     "Inquisitor": "Infiltrator",
     "Necromancer": "Reaper",
-    "Oathkeeper": "Dervish"
+    "Oathkeeper": "Dervish",
+    "Soldier": "Blademaster",
+    "Demolitionist": "Saboteur",
+    "Occultist": "Witch Hunter"
   },
   "Arcanist": {
     "Shaman": "Druid",
     "Inquisitor": "Mage Hunter",
     "Necromancer": "Spellbinder",
-    "Oathkeeper": "Templar"
+    "Oathkeeper": "Templar",
+    "Soldier": "Battlemage",
+    "Demolitionist": "Sorcerer",
+    "Nightblade": "Spellbreaker",
+    "Occultist": "Warlock"
   },
   "Shaman": {
     "Inquisitor": "Vindicator",
     "Necromancer": "Ritualist",
-    "Oathkeeper": "Archon"
+    "Oathkeeper": "Archon",
+    "Soldier": "Warder",
+    "Demolitionist": "Elementalist",
+    "Occultist": "Conjurer",
+    "Nightblade": "Trickster",
+    "Arcanist": "Druid"
   },
   "Inquisitor": {
     "Necromancer": "Apostate",
-    "Oathkeeper": "Paladin"
+    "Oathkeeper": "Paladin",
+    "Soldier": "Tactician",
+    "Demolitionist": "Purifier",
+    "Occultist": "Deceiver",
+    "Nightblade": "Infiltrator",
+    "Arcanist": "Mage Hunter",
+    "Shaman": "Vindicator"
   },
   "Necromancer": {
-    "Oathkeeper": "Oppressor"
+    "Oathkeeper": "Oppressor",
+    "Soldier": "Death Knight",
+    "Demolitionist": "Defiler",
+    "Occultist": "Cabalist",
+    "Nightblade": "Reaper",
+    "Arcanist": "Spellbinder",
+    "Shaman": "Ritualist",
+    "Inquisitor": "Apostate"
+  },
+  "Oathkeeper": {
+    "Soldier": "Warlord",
+    "Demolitionist": "Shieldbreaker",
+    "Occultist": "Sentinel",
+    "Nightblade": "Dervish",
+    "Arcanist": "Templar",
+    "Shaman": "Archon",
+    "Inquisitor": "Paladin",
+    "Necromancer": "Oppressor"
   }
 }
 
