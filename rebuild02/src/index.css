@@ -33,7 +33,7 @@ button {
     height:100px;
 }
 
-select {
+.App-body select {
   font-size:12px!important;
   max-width:175px;
 }
