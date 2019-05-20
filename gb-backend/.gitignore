@@ -12,3 +12,6 @@
 
 # local configuration
 /config/local.js
+
+# migration state store
+/.migrate
