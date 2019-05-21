@@ -1,6 +1,8 @@
 # GrimBuilds
 If you would like to help, submit a pull request for the reactboot branch. I'll keep this updated as closely as possible to what I'm working on, and I'll let you know if I'm actively changing something on it when you submit the request.
 
+Update 5/20: Grimbuilds.nfshost.com now live. Mariadb is now fully in place, needs some normalization. Submission form is working (question mark)?
+
 Update 4/29: Added JSON file for character builds, changed card displays to use the JSON data. Added Express server to the backend to serve the JSON to React.
 
 Update 4/28: Added basic layout for the browse directory using React and React-Bootstrap. Functionality is coming soon.
@@ -14,24 +16,3 @@ Website/App for Browsing Grim Dawn character builds.
 ## Setup
 
 This section is quite incomplete!
-
-### MariaDB
-
-Note: MariaDB integration is not even started yet!
-
-On Debian and its derivatives derivatives (Ubuntu, Mint, etc.)
-
-Install MariaDB:
-
-```
-sudo apt install mariadb-server
-```
-
-Next start the command line client with `mysql` and create a user for your
-application server. Be sure to use another password.
-
-```
-create user 'grimbuilds'@'localhost' identified by 'DONT USE THIS PASSWORD';
-```
-
-
