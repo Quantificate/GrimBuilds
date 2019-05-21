@@ -1,6 +1,9 @@
 'use strict'
 /* This migration salvages individual values from the old prototype table,
  * including the comma-separated fields, and puts them into their new normalized homes.
+ *
+ * TODO either in this migration or in a subsequent migration, we should
+ * populate these tables with authoritative values.
  */
 const Bluebird = require('bluebird')
 const config = require('../config')
