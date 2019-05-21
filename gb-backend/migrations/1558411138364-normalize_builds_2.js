@@ -6,6 +6,7 @@
  * populate these tables with authoritative values.
  */
 const Bluebird = require('bluebird')
+const R = require('ramda')
 const config = require('../config')
 const { createContainer } = require('../src/di')
 const container = createContainer(config)
@@ -91,6 +92,69 @@ const salvageValues = (values, tableName) =>
 const deleteFrom = tableName =>
   query(`delete from ${tableName}`)
 
+const getMasteryPairKey = (a, b) => {
+  if (b > a) {
+    const c = a
+    a = b
+    b = c
+  }
+  return `${getCode(a)}-${getCode(b)}`
+}
+
+/* Determine data to populate into `character_class` table */
+const getClasses = () =>
+  Bluebird.join(
+    query(`select id, mastery1, mastery2, class from builds_renamed`),
+    query('select id, code from character_mastery'),
+    ([builds], [masteries]) => {
+      const masteryIdByCode = {}
+      masteries.forEach(({ code, id }) =>
+        masteryIdByCode[code] = id
+      )
+      const classByMasteries = {}
+      builds.forEach(({id, mastery1, mastery2, class: klass}) => {
+        const masteryCode1 = getCode(mastery1)
+        const masteryCode2 = getCode(mastery2)
+        const masteryPairKey = getMasteryPairKey(
+          masteryCode1, masteryCode2
+        )
+        if (masteryPairKey in classByMasteries)
+          return
+        let mastery_id_1 = masteryIdByCode[masteryCode1]
+        let mastery_id_2 = masteryIdByCode[masteryCode2]
+        if (mastery_id_1 > mastery_id_2) {
+          const c = mastery_id_1
+          mastery_id_1 = mastery_id_2
+          mastery_id_2 = c
+        }
+        classByMasteries[masteryPairKey] = {
+          mastery_id_1,
+          mastery_id_2,
+          code: getCode(klass),
+          label: klass,
+        }
+      })
+      return R.values(classByMasteries)
+    }
+  )
+
+const insertClasses = classes => Bluebird.map(
+  classes,
+  c => query(`
+    insert into character_class set
+      mastery_id_1=?,
+      mastery_id_2=?,
+      code=?,
+      label=?
+  `, [
+    c.mastery_id_1,
+    c.mastery_id_2,
+    c.code,
+    c.label
+  ]),
+  { concurrency: 1 }
+)
+
 module.exports.up = function (next) {
   Promise.resolve()
   .then(() => doesBuildsRenamedExist())
@@ -98,6 +162,8 @@ module.exports.up = function (next) {
     yes && Promise.resolve()
     .then(() => getUniqueValues(['mastery1', 'mastery2']))
     .then(values => salvageValues(values, 'character_mastery'))
+    .then(() => getClasses())
+    .then(classes => insertClasses(classes))
     .then(() => getUniqueValues(['damagetype']))
     .then(values => salvageValues(values, 'character_damage_type'))
     .then(() => getUniqueValues(['playstyle']))
@@ -119,6 +185,7 @@ module.exports.up = function (next) {
 
 module.exports.down = function (next) {
   Promise.resolve()
+  .then(() => deleteFrom('character_class'))
   .then(() => deleteFrom('character_mastery'))
   .then(() => deleteFrom('character_damage_type'))
   .then(() => deleteFrom('character_play_style'))
