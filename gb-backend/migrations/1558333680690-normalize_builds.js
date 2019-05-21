@@ -4,72 +4,10 @@ const config = require('../config')
 const { createContainer } = require('../src/di')
 const container = createContainer(config)
 
+const query = (sql, params) =>
+  container.mariapool.query(sql, params)
+
 const idCol = 'id int not null auto_increment primary key'
-
-const query = (sql, params) => {
-  console.log('sql:', sql)
-  return container.mariapool.query(sql, params)
-}
-
-/* These functions are used for migrating our data */
-
-/* Returns an Array */
-const getUniqueValues = fieldNames => Bluebird.map(
-    fieldNames,
-    fieldName => query(`
-        select distinct ${fieldName} from builds
-      `)
-      .then(([rows]) =>
-        rows.map(row => row[fieldName])
-      ),
-    { concurrency: 1 }
-  )
-  .then(valueses => {
-    const values = {}
-    valueses.forEach(values =>
-      values.forEach(value =>
-        values[value] = undefined
-      )
-    )
-    return Object.keys(values)
-  })
-
-/* Returns an Array */
-const getUniqueCommaSeparatedValues = fieldName => query(`
-    select distinct ${fieldName} from builds
-  `)
-  .then(([rows]) => {
-    const values = {}
-    rows.forEach(row => row
-      .map(row => row[fieldName].trim())
-      .filter(value => value)
-      .forEach(value =>
-        values[row[fieldName]] = undefined
-      )
-    )
-    return Object.keys(values)
-  })
-
-const getCode = value => value.toLowerCase().replace(/\s\+/g, '-')
-
-/* */
-const salvageValues = (values, tableName) =>
-  Bluebird.map(
-    values,
-    value => query(
-      `insert into ${tableName} (code, label) values (?, ?)`,
-      [ getCode(value), value ],
-    ),
-    { concurrency: 1 }
-  )
-  .then(() => query(`select * from ${tableName}`))
-  .then(([rows]) => {
-    const idByCode = {}
-    rows.forEach(row =>
-      idByCode[row.code] = row.id
-    )
-    return { idByCode }
-  })
 
 /* These functions are used for manipulating table schema */
 
@@ -88,8 +26,8 @@ const createManyToManyTable = name => query(`
   create table if not exists build_character_${name} (
     build_id int not null,
     ${name}_id int not null,
-    constraint fk_build_id foreign key (build_id) references build (id),
-    constraint fk_${name}_id foreign key (${name}_id) references ${name} (id),
+    constraint fk_build_character_${name}_build_id foreign key (build_id) references build (id),
+    constraint fk_${name}_id foreign key (${name}_id) references character_${name} (id),
     primary key (build_id, ${name}_id)
   )
 `)
@@ -140,28 +78,16 @@ module.exports.up = function (next) {
   `))
   .then(() => createManyToManyTable('active_skill'))
   .then(() => createManyToManyTable('passive_skill'))
-  .then(() => getUniqueValues(['mastery1', 'mastery2']))
-  .then(values => salvageValues(values, 'character_mastery'))
-  .then(() => getUniqueValues(['damagetype']))
-  .then(values => salvageValues(values, 'character_damagetype'))
-  .then(() => getUniqueValues(['playstyle']))
-  .then(values => salvageValues(values, 'character_play_style'))
-  .then(() => getUniqueValues(['version']))
-  .then(values => salvageValues(values, 'game_version'))
-  .then(() => getUniqueValues(['gearreq']))
-  .then(values => salvageValues(values, 'character_gearreq'))
-  .then(() => getUniqueValues(['cruci']))
-  .then(values => salvageValues(values, 'character_cruci'))
-  .then(() => getUniqueCommaSeparatedValues(['activeskills']))
-  .then(values => salvageValues(values, 'character_active_skill'))
-  .then(() => getUniqueCommaSeparatedValues(['passiveskills']))
-  .then(values => salvageValues(values, 'character_passive_skill'))
   .then(() => next())
   .catch(next)
 }
 
 module.exports.down = function (next) {
+  console.log('MIGRATING DOWN')
   dropTable('character_class')
+  .then(() => dropTable('build_character_active_skill'))
+  .then(() => dropTable('build_character_passive_skill'))
+  .then(() => dropTable('character_mastery'))
   .then(() => dropTable('character_mastery'))
   .then(() => dropTable('character_damagetype'))
   .then(() => dropTable('character_active_skill'))
