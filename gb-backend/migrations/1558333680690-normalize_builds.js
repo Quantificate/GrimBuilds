@@ -35,11 +35,31 @@ const createManyToManyTable = name => query(`
 const dropTable = name =>
   query(`drop table if exists ${name}`)
 
+const createCharacterClassTable = () =>
+  query(`
+    create table if not exists character_class (
+      mastery_id_1 int not null,
+      mastery_id_2 int not null,
+      code varchar(255) not null,
+      label varchar(255) not null,
+      unique key uniq_character_class_code (code),
+      constraint fk_character_class_mastery_1 foreign key (mastery_id_1) references character_mastery (id),
+      constraint fk_character_class_mastery_2 foreign key (mastery_id_2) references character_mastery (id),
+      /* TODO this constraint seems to be being ignored by
+       * 10.0.38-MariaDB-0ubuntu0.16.04.1 */
+      constraint chk_class_mastery_order
+        check (mastery_id_1 < mastery_id_2),
+      primary key (mastery_id_1, mastery_id_2)
+     )
+     charset=latin1
+  `)
+
 /* */
 
 module.exports.up = function (next) {
-  createCodeAndLabelTable('character_class')
+  Promise.resolve()
   .then(() => createCodeAndLabelTable('character_mastery'))
+  .then(() => createCharacterClassTable())
   .then(() => createCodeAndLabelTable('character_damage_type'))
   .then(() => createCodeAndLabelTable('character_active_skill'))
   .then(() => createCodeAndLabelTable('character_passive_skill'))
@@ -53,7 +73,6 @@ module.exports.up = function (next) {
     create table if not exists build (
       ${idCol},
       charname int not null,
-      class int not null,
       mastery_id_1 int not null,
       mastery_id_2 int not null,
       damage_type_id int not null,
@@ -83,14 +102,14 @@ module.exports.up = function (next) {
 }
 
 module.exports.down = function (next) {
-  dropTable('character_class')
+  Promise.resolve()
+  .then(() => dropTable('character_class'))
   .then(() => dropTable('build_character_active_skill'))
   .then(() => dropTable('build_character_passive_skill'))
   .then(() => dropTable('build'))
   .then(() => dropTable('builds'))
   .then(() => dropTable('character_active_skill'))
   .then(() => dropTable('character_passive_skill'))
-  .then(() => dropTable('character_class'))
   .then(() => dropTable('character_cruci'))
   .then(() => dropTable('character_damage_type'))
   .then(() => dropTable('character_gearreq'))
