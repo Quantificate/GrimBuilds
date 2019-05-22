@@ -83,16 +83,16 @@ module.exports.up = function (next) {
       sr_level_id int not null,
       guide varchar(4096) not null,
       author varchar(255) default null,
-      primaryskill int not null,
+      primary_skill_id int not null,
       link varchar(255) default null,
       purpose_id int not null,
       blurb varchar(1024) default null,
-      constraint fk_version foreign key (game_version_id) references game_version (id),
-      constraint fk_gearreq foreign key (gearreq_id) references character_gearreq (id),
-      constraint fk_cruci foreign key (cruci_id) references character_cruci (id),
-      constraint fk_srlevel foreign key (sr_level_id) references character_sr_level (id),
+      constraint fk_build_version foreign key (game_version_id) references game_version (id),
+      constraint fk_build_gearreq foreign key (gearreq_id) references character_gearreq (id),
+      constraint fk_build_cruci foreign key (cruci_id) references character_cruci (id),
+      constraint fk_build_srlevel foreign key (sr_level_id) references character_sr_level (id),
       /* TODO check with seth */
-      constraint fk_primaryskill foreign key (primaryskill) references character_active_skill (id)
+      constraint fk_build_primary_skill foreign key (primary_skill_id) references character_active_skill (id)
     )
   `))
   .then(() => createManyToManyTable('active_skill'))
