@@ -168,7 +168,7 @@ class App extends Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formDamage">
-                            <Form.Control as="select" onChange={this.onChangeDamage}>
+                            <Form.Control as="select" onChange={this.onChangeDamagetype}>
                                 <option key="none" value="">Damage Type</option>
                                 {filterOptions.damagetype.map(renderOption)}
                             </Form.Control>
@@ -201,7 +201,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-
+        
   );
 }
 }

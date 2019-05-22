@@ -76,6 +76,8 @@ option {
 
 .form-control {
   font-family: 'Maitree', sans-serif;
+  background-color:#cccccc;
+  color: #000000;
 }
 
 #cardholder {
@@ -122,7 +124,7 @@ option {
     font-family: 'Maitree', sans-serif;
 }
 
-.modal-content span {
+.faqcategory {
     color:#55dd79!important;
     font-style:italic;
 }
@@ -194,6 +196,33 @@ footer div {
   color:#55dd79!important;
 }
 
+.modal-body .container {
+  width:80%;
+  margin:auto;
+}
+
+.rdw-editor-wrapper {
+  width:100%!important;
+  margin:auto;
+}
+
+.rdw-editor-main {
+  background-color:#ffffff;
+  color:#000000;
+  font-family: 'Maitree', serif;
+  height:200px;
+}
+
+.rdw-dropdownoption-default {
+  color:#000000;
+  font-family: 'Maitree', serif;
+}
+
+.rdw-dropdown-wrapper span {
+  color:#000000;
+  font-family: 'Maitree', serif;
+}
+
 @media (max-width:992px) {
   .App-body .navbar {
     height:200px;
@@ -212,6 +241,43 @@ footer div {
   .card-img-top {
     max-width:50%;
     margin:auto;
+  }
+  .modal-title, #leftTitle  {
+    font-size:22px!important;
+  }
+  #buildTitle {
+    width:90%;
+  }
+  #leftTitle {
+    width:75%!important;
+    float:left;
+  }
+  #rightTitle {
+    display:none;
+  }
+  #bigStuff {
+    width:90%;
+  }
+  #bigstuff h4 {
+    font-size:16px!important;
+    text-align:center;
+  }
+  #bigstuff h5 {
+    font-size:14px;
+    text-align:center;
+  }
+  #bigstuff .btn {
+    width:100%!important;
+    height:25px;
+    font-size:14px;
+    padding-top:3px;
+  }
+  #guide {
+    width:100%;
+  }
+  #guide p {
+    font-size:12px!important;
+    overflow:scroll;
   }
 }
 

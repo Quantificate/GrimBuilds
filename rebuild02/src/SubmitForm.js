@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Modal, Form} from 'react-bootstrap';
 import BuildGuide from './BuildGuide'
+import { Editor } from 'react-draft-wysiwyg';
+import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 class SubmitForm extends Component {
 
@@ -210,10 +212,10 @@ class SubmitForm extends Component {
               <Form.Control placeholder="Paste your GrimTools link URL here." onChange={this.handleLinkChange} value={this.state.link} />
               <Form.Control placeholder="Add a short sentence describing your build." onChange={this.handleBlurbChange} value={this.state.blurb} />
             </Form.Group>
-            <Form.Group controlId="buildForm">
-              <Form.Label>Guide</Form.Label>
-              <Form.Control as="textarea" rows="5" placeholder="Put a guide to playing your build here." onChange={this.handleGuideChange} value={this.state.guide} />
-            </Form.Group>
+            <div className="container">
+              <p>Guide</p>
+              <Editor />
+            </div>
             <Button variant="outline-secondary" type="button" onClick={this.submitForm}>Submit Your Build</Button>
           </Form>
         <Modal.Footer>
