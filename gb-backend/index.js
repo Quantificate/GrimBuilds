@@ -31,7 +31,8 @@ app.get('/api/builds-all', (req, res, next) => {
     primaryskill,
     link,
     purpose,
-    blurb
+    blurb,
+    likes
     FROM builds`)
     .then (resdb => {
       res.send(resdb[0])
@@ -89,4 +90,17 @@ app.post('/api/builds', (req, res, next) => {
     .catch (err => {
       next(err);
     })
+})
+
+app.post('/api/likes', (req, res, next) => {
+  console.log(req.body, req.body.id)
+  const buildid=req.body.id;
+  console.log(buildid)
+  container.mariapool.query(`UPDATE builds SET likes=likes+1 WHERE id=` + buildid)
+  .then (resin2 => {
+    res.send({ clicked: true })
+  })
+  .catch (err => {
+    next(err);
+  })
 })

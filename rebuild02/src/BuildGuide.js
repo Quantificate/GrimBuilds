@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Modal} from 'react-bootstrap';
+import {Button, Modal, Alert} from 'react-bootstrap';
 
 class BuildGuide extends Component {
     constructor(props, context) {
@@ -7,9 +7,11 @@ class BuildGuide extends Component {
 
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleFavClick = this.handleFavClick.bind(this);
 
         this.state = {
-            show: false
+            show: false,
+            clicked: false
         };
     }
 
@@ -19,6 +21,30 @@ class BuildGuide extends Component {
 
     handleShow() {
         this.setState({ show: true });
+    }
+
+    handleFavClick() {
+      const id = this.props.id;
+      if (this.state.clicked == false) {
+        fetch('/api/likes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({id})
+        })
+        .then(response => {
+          console.log(response)
+          this.setState({clicked:true})
+        })
+        .catch(err => {
+          this.setState({ err })
+        })
+      } else {
+        return (
+          <Alert variant="danger">You have already liked this build.</Alert>
+        )
+      }
     }
 
     render(){
@@ -55,6 +81,9 @@ class BuildGuide extends Component {
               <p>{this.props.build.guide}</p>
             </div>
           </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleFavClick} clicked={this.state.clicked.toString()} value={this.props.build.likes}>Like this Build ({this.props.build.likes})</Button>
+          </Modal.Footer>
         </Modal>
         </>
       )
