@@ -19,7 +19,7 @@ const createCodeAndLabelTable = name =>
       label varchar(255) not null,
       unique key uniq_code (code)
     )
-    charset=latin1
+    charset=utf8
   `)
 
 const createManyToManyTable = name => query(`
@@ -51,7 +51,7 @@ const createCharacterClassTable = () =>
         check (mastery_id_1 < mastery_id_2),
       primary key (mastery_id_1, mastery_id_2)
      )
-     charset=latin1
+     charset=utf8
   `)
 
 /* */
