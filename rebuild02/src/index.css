@@ -135,6 +135,16 @@ option {
   margin:auto;
 }
 
+.sortButtons {
+  float:right;
+  width:35%;
+  text-align:right;
+}
+
+.sortButtons button {
+  font-size:12px;
+}
+
 .randButton {
   border-radius:none!important;
 }

@@ -52,14 +52,11 @@ class BuildGuide extends Component {
 
     componentDidMount() {
       if (this.props.build.guide.charAt(0) == '{') {
-        console.log(this.props.build.guide);
         const guide = JSON.parse(this.props.build.guide);
         const contentState = convertFromRaw(guide);
         this.setState({guideout: EditorState.createWithContent(contentState), isFancy: true})
       } else {
-        console.log(this.props.build.guide)
         this.setState({ guideout: this.props.build.guide.toString(), isFancy: false })
-        console.log(this.state.guideout)
       }
     }
 

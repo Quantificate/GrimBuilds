@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Card, Nav, Navbar, NavDropdown, Form, FormControl, Button, ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Container, Card, Nav, Navbar, NavDropdown, Form, FormControl, Button, ListGroup, ListGroupItem, ButtonGroup} from 'react-bootstrap';
 import BuildCard from './BuildCard'
 import FaqModal from './faqModal'
 import RandomBuild from './randomBuild'
@@ -68,6 +68,7 @@ class App extends Component {
             builds:[],
             filters: initFilterState,
             searchText: '',
+            sortBy: ''
         };
         /* pre-bind onChange handlers for each filter category */
         filterCategories.forEach(filterCategory =>
@@ -138,70 +139,80 @@ class App extends Component {
           </header>
           <div className="App-body">
             <Navbar bg="dark" expand="lg">
+              <div className="filters">
                 <Navbar.Brand href="#home">Filters</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Form className="mr-auto">
-                        <Form.Row>
-                        <Form.Group controlId="formClass">
-                            <Form.Control as="select" onChange={this.onChangeClass}>
-                                <option key="none" value="">Class</option>
-                                {filterOptions.class.map(renderOption)}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="formMastery">
-                            <Form.Control as="select" onChange={this.onChangeMastery}>
-                                <option key="none" value="">Mastery</option>
-                                {filterOptions.mastery.map(renderOption)}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="formStyle">
-                            <Form.Control as="select" onChange={this.onChangePlaystyle}>
-                                <option key="none" value="">Playstyle</option>
-                                {filterOptions.playstyle.map(renderOption)}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="formPurpose">
-                            <Form.Control as="select" onChange={this.onChangePurpose}>
-                                <option key="none" value="">Purpose</option>
-                                {filterOptions.purpose.map(renderOption)}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="formDamage">
-                            <Form.Control as="select" onChange={this.onChangeDamagetype}>
-                                <option key="none" value="">Damage Type</option>
-                                {filterOptions.damagetype.map(renderOption)}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="formSR">
-                            <Form.Control as="select" onChange={this.onChangeSrlevel}>
-                                <option key="none" value="">Shattered Realms</option>
-                                {filterOptions.srlevel.map(renderOption)}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="formCruci">
-                            <Form.Control as="select" onChange={this.onChangeCruci}>
-                                <option key="none" value="">Crucible</option>
-                                {filterOptions.cruci.map(renderOption)}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="formGear">
-                            <Form.Control as="select" onChange={this.onChangeGearreq}>
-                                <option key="none" value="">Gear Requirement</option>
-                                {filterOptions.gearreq.map(renderOption)}
-                            </Form.Control>
-                        </Form.Group>
+                  <Form className="mr-auto">
+                    <Form.Row>
+                    <Form.Group controlId="formClass">
+                        <Form.Control as="select" onChange={this.onChangeClass}>
+                            <option key="none" value="">Class</option>
+                            {filterOptions.class.map(renderOption)}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="formMastery">
+                        <Form.Control as="select" onChange={this.onChangeMastery}>
+                            <option key="none" value="">Mastery</option>
+                            {filterOptions.mastery.map(renderOption)}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="formStyle">
+                        <Form.Control as="select" onChange={this.onChangePlaystyle}>
+                            <option key="none" value="">Playstyle</option>
+                            {filterOptions.playstyle.map(renderOption)}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="formPurpose">
+                        <Form.Control as="select" onChange={this.onChangePurpose}>
+                            <option key="none" value="">Purpose</option>
+                            {filterOptions.purpose.map(renderOption)}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="formDamage">
+                        <Form.Control as="select" onChange={this.onChangeDamagetype}>
+                            <option key="none" value="">Damage Type</option>
+                            {filterOptions.damagetype.map(renderOption)}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="formSR">
+                        <Form.Control as="select" onChange={this.onChangeSrlevel}>
+                            <option key="none" value="">Shattered Realms</option>
+                            {filterOptions.srlevel.map(renderOption)}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="formCruci">
+                        <Form.Control as="select" onChange={this.onChangeCruci}>
+                            <option key="none" value="">Crucible</option>
+                            {filterOptions.cruci.map(renderOption)}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="formGear">
+                        <Form.Control as="select" onChange={this.onChangeGearreq}>
+                            <option key="none" value="">Gear Requirement</option>
+                            {filterOptions.gearreq.map(renderOption)}
+                        </Form.Control>
+                    </Form.Group>
                     </Form.Row>
-                    </Form>
-                    <Button className="btn btn-secondary" href="/">Reset</Button>
+                  </Form>
                 </Navbar.Collapse>
+              </div>
+              <div className="sortButtons">
+                <p>Sorting:</p>
+                <ButtonGroup aria-label="Sort Buttons">
+                  <Button variant="outline-secondary" onClick={this.handleSortChange} value="alpha">Alphabetical</Button>
+                  <Button variant="outline-secondary" onClick={this.handleSortChange} value="oldfirst">Oldest to Newest</Button>
+                  <Button variant="outline-secondary" onClick={this.handleSortChange} value="newfirst">Newest to Oldest</Button>
+                  <Button variant="outline-secondary" onClick={this.handleSortChange} value="likes">Most Liked</Button>
+                </ButtonGroup>
+              </div>
             </Navbar>
             <div className="container" id="cardholder">
                 {renderResults(builds)}
             </div>
           </div>
         </div>
-        
+
   );
 }
 }
