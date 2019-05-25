@@ -178,7 +178,11 @@ module.exports.up = function (next) {
     .then(values => salvageValues(values, 'character_cruci'))
     .then(() => getUniqueValues(['purpose']))
     .then(values => salvageValues(values, 'character_purpose'))
-    .then(() => getUniqueCommaSeparatedValues('activeskills'))
+    .then(() => Bluebird.join(
+      getUniqueCommaSeparatedValues('activeskills'),
+      getUniqueValues(['primaryskill']),
+      (a, b) => R.uniq(R.concat(a, b))
+    ))
     .then(values => salvageValues(values, 'character_active_skill'))
     .then(() => getUniqueCommaSeparatedValues('passiveskills'))
     .then(values => salvageValues(values, 'character_passive_skill'))
