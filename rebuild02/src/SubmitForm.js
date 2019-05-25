@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Modal, Form} from 'react-bootstrap';
 import BuildGuide from './BuildGuide'
+import {EditorState, convertToRaw} from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
@@ -50,7 +51,7 @@ class SubmitForm extends Component {
             author: "",
             link: "",
             blurb: "",
-            guide: ""
+            guide: EditorState.createEmpty()
         };
     }
 
@@ -62,6 +63,13 @@ class SubmitForm extends Component {
         this.setState({ show: true, submitting: false, err: false });
     }
 
+    onEditorStateChange: Function = (guide) => {
+      const rawGuide = convertToRaw(guide.getCurrentContent());
+      this.setState({
+        guide: rawGuide
+      });
+    };
+
     submitForm() {
       console.log(this.state)
       const { charname, mastery1, mastery2, damage, style, purpose, gear, cruci, sr, activeskills, passiveskills, primaryskill, author, link, blurb, guide } = this.state
@@ -69,6 +77,7 @@ class SubmitForm extends Component {
       this.setState({
         submitting: true
       })
+
       fetch('/api/builds', {
         method: 'POST',
         headers: {
@@ -96,7 +105,6 @@ class SubmitForm extends Component {
 
     render(){
       const footer = this.state.submitting ? 'SUBMITTING...' : this.state.err ? this.state.err : ''
-
       return (
       <>
       <Button variant="secondary" className="submitButton" onClick={this.handleShow}>Submit Your Build</Button>
@@ -214,7 +222,7 @@ class SubmitForm extends Component {
             </Form.Group>
             <div className="container">
               <p>Guide</p>
-              <Editor />
+              <Editor guide={this.state.guide} onEditorStateChange={this.onEditorStateChange} />
             </div>
             <Button variant="outline-secondary" type="button" onClick={this.submitForm}>Submit Your Build</Button>
           </Form>

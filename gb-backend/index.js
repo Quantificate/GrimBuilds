@@ -44,6 +44,7 @@ app.get('/api/builds-all', (req, res, next) => {
 
 app.post('/api/builds', (req, res, next) => {
   //TODO: Validate form data
+  const guide = JSON.stringify(req.body.guide)
   const charclass = getClassFromMasteries(req.body.mastery1, req.body.mastery2); //TODO: Fix error: mastery1 is undefined.
   container.mariapool.query(`INSERT INTO builds SET
     charname=?,
@@ -77,7 +78,7 @@ app.post('/api/builds', (req, res, next) => {
       req.body.gear,
       req.body.cruci,
       req.body.sr,
-      req.body.guide,
+      guide,
       req.body.author,
       req.body.primaryskill,
       req.body.link,

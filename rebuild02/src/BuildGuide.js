@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Modal, Alert} from 'react-bootstrap';
+import {Editor, EditorState, convertFromRaw} from 'draft-js';
 
 class BuildGuide extends Component {
     constructor(props, context) {
@@ -11,7 +12,9 @@ class BuildGuide extends Component {
 
         this.state = {
             show: false,
-            clicked: false
+            clicked: false,
+            guideout: "",
+            isFancy: false
         };
     }
 
@@ -24,7 +27,7 @@ class BuildGuide extends Component {
     }
 
     handleFavClick() {
-      const id = this.props.id;
+      const id = this.props.build.id;
       if (this.state.clicked == false) {
         fetch('/api/likes', {
           method: 'POST',
@@ -47,8 +50,28 @@ class BuildGuide extends Component {
       }
     }
 
-    render(){
+    componentDidMount() {
+      if (this.props.build.guide.charAt(0) == '{') {
+        console.log(this.props.build.guide);
+        const guide = JSON.parse(this.props.build.guide);
+        const contentState = convertFromRaw(guide);
+        this.setState({guideout: EditorState.createWithContent(contentState), isFancy: true})
+      } else {
+        console.log(this.props.build.guide)
+        this.setState({ guideout: this.props.build.guide.toString(), isFancy: false })
+        console.log(this.state.guideout)
+      }
+    }
 
+    render(){
+        const fancy = this.state.isFancy;
+        let display;
+
+        if (fancy) {
+          display = <Editor editorState={this.state.guideout} readOnly={true} />;
+        } else {
+          display = <p>{this.state.guideout}</p>;
+        }
         return (
         <>
         <Button variant="outline-secondary" onClick={this.handleShow}>Full Guide</Button>
@@ -78,7 +101,7 @@ class BuildGuide extends Component {
               <p>Shattered Realms Clear: {this.props.build.srlevel}</p>
             </div>
             <div className="container-fluid" id="guide">
-              <p>{this.props.build.guide}</p>
+              {display}
             </div>
           </Modal.Body>
           <Modal.Footer>
