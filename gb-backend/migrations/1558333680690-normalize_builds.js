@@ -72,7 +72,7 @@ module.exports.up = function (next) {
   .then(() => query(`
     create table if not exists build (
       ${idCol},
-      charname int not null,
+      charname varchar(255) not null,
       mastery_id_1 int not null,
       mastery_id_2 int not null,
       damage_type_id int not null,
