@@ -9,11 +9,11 @@ const BuildCard = build => <Card key={build.id} style={{width:'15rem'}}>
       <Card.Text>{build.blurb}</Card.Text>
   </Card.Body>
   <ListGroup className="list-group-flush">
-      <ListGroupItem>{build.class}</ListGroupItem>
-      <ListGroupItem>{build.mastery1} / {build.mastery2}</ListGroupItem>
-      <ListGroupItem>{build.purpose}</ListGroupItem>
-      <ListGroupItem>{build.playstyle}</ListGroupItem>
-      <ListGroupItem>{build.gearreq}</ListGroupItem>
+      <ListGroupItem>{build.class.label}</ListGroupItem>
+      <ListGroupItem>{build.mastery1.label} / {build.mastery2.label}</ListGroupItem>
+      <ListGroupItem>{build.purpose.label}</ListGroupItem>
+      <ListGroupItem>{build.playstyle.label}</ListGroupItem>
+      <ListGroupItem>{build.gearreq.label}</ListGroupItem>
       <ListGroupItem>By: {build.author}</ListGroupItem>
   </ListGroup>
   <Card.Body>

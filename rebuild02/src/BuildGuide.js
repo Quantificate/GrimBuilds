@@ -69,33 +69,34 @@ class BuildGuide extends Component {
         } else {
           display = <p>{this.state.guideout}</p>;
         }
+        
         return (
         <>
         <Button variant="outline-secondary" onClick={this.handleShow}>Full Guide</Button>
         <Modal size="lg" show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title id="buildTitle"><span id="leftTitle">{this.props.build.charname}</span><span id="rightTitle">{this.props.build.version}</span></Modal.Title>
+            <Modal.Title id="buildTitle"><span id="leftTitle">{this.props.build.charname}</span><span id="rightTitle">{this.props.build.gameVersion.label}</span></Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="container-fluid" id="bigstuff">
-              <h4>{this.props.build.class}</h4>
-              <h5>{this.props.build.purpose}</h5>
+              <h4>{this.props.build.class.label}</h4>
+              <h5>{this.props.build.purpose.label}</h5>
               <p><Button variant="outline-secondary" href={this.props.build.link} target="_blank">Grim Tools</Button></p>
             </div>
             <div className="container-fluid" id="basics">
-              <p>Damage Type: {this.props.build.damagetype}</p>
-              <p>Playstyle: {this.props.build.playstyle}</p>
-              <p>Primary Skill: {this.props.build.primaryskill}</p>
+              <p>Damage Type: {this.props.build.damageType.label}</p>
+              <p>Playstyle: {this.props.build.playstyle.label}</p>
+              <p>Primary Skill: {this.props.build.primarySkill.label}</p>
               <p>Author: {this.props.build.author}</p>
             </div>
             <div className="container-fluid" id="allSkills">
-              <p>Active Skills: {this.props.build.activeskills}</p>
-              <p>Passive Skills: {this.props.build.passiveskills}</p>
+              <p>Active Skills: {this.props.build.activeSkills.map(({label}) => label).join(', ')}</p>
+              <p>Passive Skills: {this.props.build.passiveSkills.map(({label}) => label).join(', ')}</p>
             </div>
             <div className="container-fluid" id="advanced">
-              <p>Gear Needed: {this.props.build.gearreq}</p>
-              <p>Crucible Clear: {this.props.build.cruci}</p>
-              <p>Shattered Realms Clear: {this.props.build.srlevel}</p>
+              <p>Gear Needed: {this.props.build.gearreq.label}</p>
+              <p>Crucible Clear: {this.props.build.cruci.label}</p>
+              <p>Shattered Realms Clear: {this.props.build.srLevel.label}</p>
             </div>
             <div className="container-fluid" id="guide">
               {display}

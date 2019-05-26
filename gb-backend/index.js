@@ -2,6 +2,7 @@ const express = require('express');
 const jsonf = require('jsonfile');
 const config = require('./config')
 const bodyParser = require('body-parser')
+const { makeModel } = require('./src/model')
 const container = require('./src/di').createContainer(config)
 const { getClassFromMasteries } = require('./src/lib/sheets')
 const app = express();
@@ -11,32 +12,13 @@ app.use(bodyParser.json())
 
 app.listen(port, () => console.log(`Now listening on P ${port}`));
 
+const model = makeModel(config, container)
+
 app.get('/api/builds-all', (req, res, next) => {
-  container.mariapool.query(`SELECT
-    id,
-    charname,
-    class,
-    mastery1,
-    mastery2,
-    damagetype,
-    activeskills,
-    passiveskills,
-    playstyle,
-    version,
-    gearreq,
-    cruci,
-    srlevel,
-    guide,
-    author,
-    primaryskill,
-    link,
-    purpose,
-    blurb,
-    likes
-    FROM builds`)
-    .then (resdb => {
-      res.send(resdb[0])
-    })
+  model.getAllBuilds()
+    .then (resdb =>
+      res.send(resdb)
+    )
     .catch (err => {
       next(err);
     })
