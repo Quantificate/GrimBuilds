@@ -34,7 +34,7 @@ class RandomBuild extends Component {
         <>
         <Button variant="secondary" className="randButton" onClick={this.handleShow}>Random Build</Button>
         <Modal id="randModal" show={this.state.show} onHide={this.handleClose}>
-            <Modal.Header closeButton>You got a {this.state.randBuild.class}!</Modal.Header>
+            <Modal.Header closeButton>You got a {this.state.randBuild.class.label}!</Modal.Header>
             <Card key={this.state.randBuild.id} style={{width:'100%'}}>
               <Card.Img variant="top" src="/images/placehold.png" />
               <Card.Body>
@@ -42,15 +42,15 @@ class RandomBuild extends Component {
                   <Card.Text>{this.state.randBuild.blurb}</Card.Text>
               </Card.Body>
               <ListGroup className="list-group-flush">
-                  <ListGroupItem>{this.state.randBuild.class}</ListGroupItem>
-                  <ListGroupItem>{this.state.randBuild.mastery1} {this.state.randBuild.mastery2}</ListGroupItem>
+                  <ListGroupItem>{this.state.randBuild.class.label}</ListGroupItem>
+                  <ListGroupItem>{this.state.randBuild.mastery1.label} {this.state.randBuild.mastery2.label}</ListGroupItem>
                   <ListGroupItem>{this.state.randBuild.purpose}</ListGroupItem>
-                  <ListGroupItem>{this.state.randBuild.playstyle}</ListGroupItem>
-                    <ListGroupItem>{this.state.randBuild.primaryskill}</ListGroupItem>
-                  <ListGroupItem>{this.state.randBuild.damagetype}</ListGroupItem>
-                    <ListGroupItem>{this.state.randBuild.cruci}</ListGroupItem>
-                    <ListGroupItem>{this.state.randBuild.srlevel}</ListGroupItem>
-                    <ListGroupItem>{this.state.randBuild.gearreq}</ListGroupItem>
+                  <ListGroupItem>{this.state.randBuild.playstyle.label}</ListGroupItem>
+                    <ListGroupItem>{this.state.randBuild.primarySkill.label}</ListGroupItem>
+                  <ListGroupItem>{this.state.randBuild.damageType.label}</ListGroupItem>
+                    <ListGroupItem>{this.state.randBuild.cruci.label}</ListGroupItem>
+                    <ListGroupItem>{this.state.randBuild.srLevel.label}</ListGroupItem>
+                    <ListGroupItem>{this.state.randBuild.gearreq.label}</ListGroupItem>
                   <ListGroupItem>By: {this.state.randBuild.author}</ListGroupItem>
               </ListGroup>
               <Card.Body>

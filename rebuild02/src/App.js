@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {Container, Card, Nav, Navbar, NavDropdown, Form, FormControl, Button, ListGroup, ListGroupItem, ButtonGroup} from 'react-bootstrap';
 import BuildCard from './BuildCard'
 import FaqModal from './faqModal'
-import RandomBuild from './randomBuild'
 import SubmitForm from './SubmitForm'
 import BuildGuide from './BuildGuide'
-import { BrowserRouter, Route, Link } from 'react-router-dom'
+import MainHeader from './mainHeader'
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom'
 import * as filterOptions from './Filters.json'
 import './App.css';
 
@@ -86,7 +86,8 @@ class App extends Component {
             builds:[],
             filters: initFilterState,
             searchText: '',
-            sortBy: ''
+            sortBy: '',
+            singleBuild:[]
         };
         /* pre-bind onChange handlers for each filter category */
         filterCategories.forEach(filterCategory =>
@@ -137,24 +138,23 @@ class App extends Component {
             results.map(BuildCard)
         }</div>
 
+        function Cardholder() {
+          return <div className="container" id="cardholder">
+              {renderResults(builds)}
+          </div>;
+        }
+
+        const buildGuideSelector = (builds, id) => {
+          var singular = builds.find(build => build.id == id);
+          this.setState({singleBuild: singular})
+        }
+
+        console.log(this.state.builds)
+
       return (
         <div className="App">
           <header className="App-header">
-            <Navbar bg="dark" expand="lg">
-                <Navbar.Brand href="#home">Grim Builds <span>(alpha)</span></Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <FaqModal />
-                        <RandomBuild build={this.state.builds} />
-                        <SubmitForm />
-                    </Nav>
-                    <Button variant="outline-secondary" id="donateButton" href="https://paypal.me/theoreticaldev" target="_blank">Donate</Button>
-                    <Form inline>
-                        <FormControl type="text" placeholder="Search Builds" className="mr-sm-2" onChange={this.onSearchBarChange} />
-                    </Form>
-                </Navbar.Collapse>
-            </Navbar>
+            <MainHeader builds={this.state.builds} />
           </header>
           <div className="App-body">
             <Navbar bg="dark" expand="lg">
@@ -226,9 +226,12 @@ class App extends Component {
                 </ButtonGroup>
               </div>
             </Navbar>
-            <div className="container" id="cardholder">
-                {renderResults(builds)}
-            </div>
+            <BrowserRouter forceRefresh={true}>
+              <Switch>
+                <Route path="/" exact component={Cardholder} />
+                <Route path="/guide/:id" render={(props) => { return <BuildGuide {...props} build={props.location.state} />}} />
+              </Switch>
+            </BrowserRouter>
           </div>
         </div>
 

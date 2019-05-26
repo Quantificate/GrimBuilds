@@ -149,29 +149,81 @@ option {
   border-radius:none!important;
 }
 
+.guide-body {
+  padding-top:15px;
+  background-color:#343a40;
+}
+
 #leftTitle {
+  color:#55dd79;
+  font-family: 'Special Elite', serif;
+  font-size: 36px;
   float:left;
-  width:400px;
-  font-size:28px;
 }
 
 #rightTitle {
-  margin-left:240px;
+  font-family: 'Maitree', serif;
+  color:#55dd79;
+  float:right;
 }
 
 #bigstuff {
-  border-bottom:#cccccc 1px solid;
+  clear:both;
+  border-top:#55dd79 1px solid;
+  padding-top:10px;
 }
 
-#basics, #allSkills, #advanced {
+#bigstuff h4 {
+  color:#55dd79;
+  font-family: 'Special Elite', serif;
+  font-size:28px;
+}
+
+#bigstuff h5 {
+  font-family: 'Maitree', serif;
+  font-size: 24px;
+  color:#cccccc;
+}
+
+#basics {
+  border-top:#55dd79 1px solid;
   padding-top:10px;
-  border-bottom:#cccccc 1px solid;
-  font-family: sans-serif;
+}
+
+#basics li {
+  font-family: 'Maitree', serif;
+  color:#cccccc;
+  font-size:18px;
+}
+
+#allSkills {
+  border-top:#55dd79 1px solid;
+  padding-top:10px;
+}
+
+#allSkills p {
+  font-family: 'Maitree', serif;
+  color:#cccccc;
+  font-size:18px;
+}
+
+#advanced {
+  border-top:#55dd79 1px solid;
+  padding-top:10px;
+}
+
+#advanced li {
+  font-family: 'Maitree', serif;
+  color:#cccccc;
+  font-size:18px;
 }
 
 #guide {
-  padding-top:10px;
-  font-family: sans-serif;
+  border-top:#55dd79 1px solid;
+  padding:10px;
+  font-size:14px;
+  color:#cccccc;
+  font-family:'Maitree', serif;
 }
 
 footer {

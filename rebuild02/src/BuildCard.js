@@ -21,11 +21,10 @@ const BuildCard = build => <Card key={build.id} style={{width:'15rem'}}>
       <ListGroupItem>By: {build.author}</ListGroupItem>
   </ListGroup>
   <Card.Body>
-    <Router history={history}>
-      <Link to={"/guide/" + build.id}><Button variant="outline-secondary">Full Build</Button></Link>
-      <Route path={"/guide/" + build.id} render={(props) => { return <BuildGuide {...props} build={build} />}} />
+    <Router history={history} forceRefresh={true}>
+      <Link to={{ pathname: "/guide/" + build.id, state: build}}><Button variant="outline-secondary">Full Build</Button></Link>
     </Router>
   </Card.Body>
 </Card>
 
-export default BuildCard
+export default BuildCard;
