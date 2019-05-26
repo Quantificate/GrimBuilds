@@ -4,11 +4,29 @@ import BuildCard from './BuildCard'
 import FaqModal from './faqModal'
 import RandomBuild from './randomBuild'
 import SubmitForm from './SubmitForm'
+import BuildGuide from './BuildGuide'
+import { BrowserRouter, Route, Link } from 'react-router-dom'
 import * as filterOptions from './Filters.json'
 import './App.css';
 
 //TODO: Conditionals for different info items based on Purpose.
 //TODO: Code for creating cards generically, then filling with database info.
+
+// const routeA = () => <div>
+//   <h3>Route A</h3>
+//   <p>
+//     Wow! A route!
+//     <Link to="/b/1">LOOK</Link>
+//     <Link to="/b/2">ANOTHER</Link>
+//     <Link to="/b/3">ROUTE</Link>
+//     <Link to="/b/4"><Button variant="outline-secondary">Try Me</Button></Link>
+//   </p>
+// </div>
+// const routeB = ({match:{params:{id}}}) => <div>
+//   <h3>Route /b/{id}</h3>
+//   <p>omg too mayn routes <Link to="/">go back..</Link></p>
+// </div>
+
 
 const renderOption = opt => <option key={opt} value={opt}>{opt}</option>
 
@@ -105,6 +123,7 @@ class App extends Component {
             searchText: ev.target.value
         })
     }
+
     render() {
         /* Filter builds down */
         const builds = this.state.builds.filter(
