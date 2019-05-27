@@ -226,7 +226,7 @@ class App extends Component {
                 </ButtonGroup>
               </div>
             </Navbar>
-            <BrowserRouter forceRefresh={true}>
+            <BrowserRouter>
               <Switch>
                 <Route path="/" exact component={Cardholder} />
                 <Route path="/guide/:id" render={(props) => { return <BuildGuide {...props} build={props.location.state} />}} />
