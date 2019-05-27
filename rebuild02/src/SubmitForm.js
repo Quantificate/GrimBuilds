@@ -107,7 +107,7 @@ class SubmitForm extends Component {
       const footer = this.state.submitting ? 'SUBMITTING...' : this.state.err ? this.state.err : ''
       return (
       <>
-      <Button variant="secondary" className="submitButton" onClick={this.handleShow}>Submit Your Build</Button>
+      <Button variant="outline-secondary" className="submitButton" onClick={this.handleShow}>Submit Your Build</Button>
       <Modal size="lg" id="submitModal" show={this.state.show} onHide={this.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Submit Your Own Build!</Modal.Title>

@@ -135,9 +135,23 @@ option {
   margin:auto;
 }
 
+.filters {
+  width:80%;
+  float:left;
+}
+
+.filters .navbar-brand {
+  float:left;
+}
+
+.filters .form-row {
+  clear:left;
+
+}
+
 .sortButtons {
   float:right;
-  width:35%;
+  width:25%;
   text-align:right;
 }
 
