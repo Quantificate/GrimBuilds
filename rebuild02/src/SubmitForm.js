@@ -31,6 +31,7 @@ class SubmitForm extends Component {
         this.handleLinkChange = this.handleChange.bind(this, "link");
         this.handleBlurbChange = this.handleChange.bind(this, "blurb");
         this.handleGuideChange = this.handleChange.bind(this, "guide");
+        this.handleImageChange = this.handleChange.bind(this, "image");
 
         this.state = {
             show: false,
@@ -51,6 +52,7 @@ class SubmitForm extends Component {
             author: "",
             link: "",
             blurb: "",
+            image: "",
             guide: EditorState.createEmpty()
         };
     }
@@ -218,6 +220,7 @@ class SubmitForm extends Component {
               <Form.Control placeholder="What's your Primary (most used) Skill?" onChange={this.handlePrimaryChange} value={this.state.primaryskill}/>
               <Form.Control placeholder="Your Name (this IS displayed)" onChange={this.handleAuthorChange} value={this.state.author}/>
               <Form.Control placeholder="Paste your GrimTools link URL here." onChange={this.handleLinkChange} value={this.state.link} />
+              <Form.Control placeholder="Paste your image link here. (Try Imgur)" onChange={this.handleImageChange} value={this.state.image} />
               <Form.Control placeholder="Add a short sentence describing your build." onChange={this.handleBlurbChange} value={this.state.blurb} />
             </Form.Group>
             <div className="container">

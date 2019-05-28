@@ -7,7 +7,7 @@ import BuildGuide from './BuildGuide'
 const history = createBrowserHistory()
 
 const BuildCard = build => <Card key={build.id} style={{width:'15rem'}}>
-  <Card.Img variant="top" src="/images/placehold.png" />
+  <Card.Img variant="top" src={build.image} />
   <Card.Body>
       <Card.Title>{build.charname}</Card.Title>
       <Card.Text>{build.blurb}</Card.Text>

@@ -149,8 +149,6 @@ class App extends Component {
           this.setState({singleBuild: singular})
         }
 
-        console.log(this.state.builds)
-
       return (
         <div className="App">
           <header className="App-header">

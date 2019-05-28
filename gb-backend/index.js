@@ -46,6 +46,7 @@ app.post('/api/builds', (req, res, next) => {
     primaryskill=?,
     link=?,
     purpose=?,
+    image=?,
     blurb=?
     `, [
       req.body.charname,
@@ -65,6 +66,7 @@ app.post('/api/builds', (req, res, next) => {
       req.body.primaryskill,
       req.body.link,
       req.body.purpose,
+      req.body.image,
       req.body.blurb
     ])
     .then (resin => {

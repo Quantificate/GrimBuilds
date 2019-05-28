@@ -142,6 +142,7 @@ module.exports.makeModel = (config, di) => {
         primary_skill_id,
         link,
         purpose_id,
+        image,
         blurb
       from build
     `)
