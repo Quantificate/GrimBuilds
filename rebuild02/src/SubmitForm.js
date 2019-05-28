@@ -74,7 +74,7 @@ class SubmitForm extends Component {
 
     submitForm() {
       console.log(this.state)
-      const { charname, mastery1, mastery2, damage, style, purpose, gear, cruci, sr, activeskills, passiveskills, primaryskill, author, link, blurb, guide } = this.state
+      const { charname, mastery1, mastery2, damage, style, purpose, gear, cruci, sr, activeskills, passiveskills, primaryskill, author, link, blurb, image, guide } = this.state
 
       this.setState({
         submitting: true
@@ -86,7 +86,7 @@ class SubmitForm extends Component {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          charname, mastery1, mastery2, damage, style, purpose, gear, cruci, sr, activeskills, passiveskills, primaryskill, author, link, blurb, guide
+          charname, mastery1, mastery2, damage, style, purpose, gear, cruci, sr, activeskills, passiveskills, primaryskill, author, link, blurb, image, guide
         })
       })
       .then(response => {

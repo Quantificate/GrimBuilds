@@ -120,6 +120,7 @@ module.exports.makeModel = (config, di) => {
         author: build.author,
         link: build.link,
         blurb: build.blurb,
+        image: build.image,
         ...mostlyHydratedBuild,
       }
     })

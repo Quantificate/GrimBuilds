@@ -9,3 +9,6 @@
 
 # production
 /build
+
+# sql dump
+/gb-backend/grimbuilds-dump-2019-05-25.sql
