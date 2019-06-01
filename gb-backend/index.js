@@ -33,6 +33,13 @@ app.get('/api/guide/:buildId', (req, res, next) => {
     })
 })
 
+app.post('/api/builds/search', (req, res, next) => {
+  console.log('got search body=', req.body)
+  return model.getAllBuildsByCriteria(req.body)
+  .then(builds => res.send(builds))
+  .catch(next)
+})
+
 app.post('/api/builds', (req, res, next) => {
   //TODO: Validate form data
   const guide = JSON.stringify(req.body.guide)

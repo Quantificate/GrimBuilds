@@ -125,26 +125,30 @@ module.exports.makeModel = (config, di) => {
       }
     })
 
+  const commonBuildFields = `
+    id,
+    charname,
+    mastery_id_1,
+    mastery_id_2,
+    damage_type_id,
+    play_style_id,
+    game_version_id,
+    gearreq_id,
+    cruci_id,
+    sr_level_id,
+    guide,
+    author,
+    primary_skill_id,
+    link,
+    purpose_id,
+    image,
+    blurb
+  `
+
   const getAllBuilds = () =>
     di.mariapool.query(`
       select
-        id,
-        charname,
-        mastery_id_1,
-        mastery_id_2,
-        damage_type_id,
-        play_style_id,
-        game_version_id,
-        gearreq_id,
-        cruci_id,
-        sr_level_id,
-        guide,
-        author,
-        primary_skill_id,
-        link,
-        purpose_id,
-        image,
-        blurb
+      ${commonBuildFields}
       from build
     `)
     .then(([rows]) => Bluebird.map(
@@ -152,6 +156,49 @@ module.exports.makeModel = (config, di) => {
       hydrateBuildRow,
       { concurrency: 1 }
     ))
+
+  const whereParamNullOrMatch = colName => `(? is null or ? = ${colName})`
+
+  const getAllBuildsByCriteria = ({
+    classCompoundId,
+    masteryId,
+    playStyleId,
+    purposeId,
+    damageTypeId,
+    srLevelId,
+    cruciId,
+    gearReqId,
+  }) => {
+    return di.mariapool.query(`
+      select
+      ${commonBuildFields}
+      from build
+      where
+        (? or (mastery_id_1 = ? and mastery_id_2 = ?)) and
+        ${whereParamNullOrMatch('purpose_id')} and
+        ${whereParamNullOrMatch('play_style_id')} and
+        ${whereParamNullOrMatch('damage_type_id')} and
+        ${whereParamNullOrMatch('sr_level_id')} and
+        ${whereParamNullOrMatch('cruci_id')} and
+        ${whereParamNullOrMatch('gearreq_id')} and
+        (? is null or ? = mastery_id_1 or ? = mastery_id_2)
+    `, [
+      classCompoundId ? 0 : 1,
+      classCompoundId && classCompoundId[0], classCompoundId && classCompoundId[1],
+      playStyleId, playStyleId,
+      purposeId, purposeId,
+      damageTypeId, damageTypeId,
+      srLevelId, srLevelId,
+      cruciId, cruciId,
+      gearReqId, gearReqId,
+      masteryId, masteryId, masteryId
+    ])
+    .then(([rows]) => Bluebird.map(
+      rows,
+      hydrateBuildRow,
+      { concurrency: 1 }
+    ))
+  }
 
   const insertBuild = (build) =>
     di.mariapool.query(`
@@ -200,5 +247,6 @@ module.exports.makeModel = (config, di) => {
     getPassiveSkillsByBuildId,
     getAllBuilds,
     getBuildById,
+    getAllBuildsByCriteria,
   }
 }
