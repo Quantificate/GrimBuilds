@@ -98,3 +98,11 @@ app.post('/api/likes', (req, res, next) => {
     next(err);
   })
 })
+
+app.use((err, req, res, next) => {
+  /* TODO handle not found error differently */
+  res.status(500).send({
+    success: false,
+    err: err.message
+  })
+})

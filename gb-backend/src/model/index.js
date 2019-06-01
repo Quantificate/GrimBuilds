@@ -181,7 +181,10 @@ module.exports.makeModel = (config, di) => {
       from build
       where id = ?
     `, [id])
-    .then(([[row]]) => row && hydrateBuildRow(row))
+    .then(([[row]]) => {
+      if (row) return hydrateBuildRow(row)
+      throw new Error('build not found')
+    })
 
   return {
     getMasteryById,
