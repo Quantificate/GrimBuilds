@@ -153,6 +153,36 @@ module.exports.makeModel = (config, di) => {
       { concurrency: 1 }
     ))
 
+  const insertBuild = (build) =>
+    di.mariapool.query(`
+
+      `)
+
+  const getBuildById = id =>
+    di.mariapool.query(`
+      select
+        id,
+        charname,
+        mastery_id_1,
+        mastery_id_2,
+        damage_type_id,
+        play_style_id,
+        game_version_id,
+        gearreq_id,
+        cruci_id,
+        sr_level_id,
+        guide,
+        author,
+        primary_skill_id,
+        link,
+        purpose_id,
+        image,
+        blurb
+      from build
+      where id = ?
+    `, [id])
+    .then(([[row]]) => row && hydrateBuildRow(row))
+
   return {
     getMasteryById,
     getDamageTypeById,
@@ -166,5 +196,6 @@ module.exports.makeModel = (config, di) => {
     getActiveSkillsByBuildId,
     getPassiveSkillsByBuildId,
     getAllBuilds,
+    getBuildById,
   }
 }

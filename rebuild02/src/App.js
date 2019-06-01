@@ -227,7 +227,7 @@ class App extends Component {
             <BrowserRouter>
               <Switch>
                 <Route path="/" exact component={Cardholder} />
-                <Route path="/guide/:id" render={(props) => { return <BuildGuide {...props} build={props.location.state} />}} />
+                <Route path="/guide/:id" component={BuildGuide}/>
               </Switch>
             </BrowserRouter>
           </div>

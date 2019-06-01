@@ -21,7 +21,7 @@ const BuildCard = build => <Card key={build.id} style={{width:'15rem'}}>
       <ListGroupItem>By: {build.author}</ListGroupItem>
   </ListGroup>
   <Card.Body>
-    <Link to={{ pathname: "/guide/" + build.id, state: build}}><Button variant="outline-secondary">Full Build</Button></Link>
+    <Link to={"/guide/" + build.id}><Button variant="outline-secondary">Full Build</Button></Link>
   </Card.Body>
 </Card>
 

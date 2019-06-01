@@ -24,11 +24,20 @@ app.get('/api/builds-all', (req, res, next) => {
     })
 })
 
+app.get('/api/guide/:buildId', (req, res, next) => {
+  const {buildId} = req.params
+  model.getBuildById(buildId)
+    .then(build => res.send(build))
+    .catch (err => {
+      next(err);
+    })
+})
+
 app.post('/api/builds', (req, res, next) => {
   //TODO: Validate form data
   const guide = JSON.stringify(req.body.guide)
   const charclass = getClassFromMasteries(req.body.mastery1, req.body.mastery2); //TODO: Fix error: mastery1 is undefined.
-  container.mariapool.query(`INSERT INTO builds SET
+  container.mariapool.query(`INSERT INTO build SET
     charname=?,
     class=?,
     mastery1=?,
