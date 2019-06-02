@@ -58,10 +58,12 @@ module.exports.makeModel = (config, di) => {
   const getDamageTypeByCode = makeGetByCodeFunc('character_damage_type')
   const getPlayStyleByCode = makeGetByCodeFunc('character_play_style')
   const getGameVersionByCode = makeGetByCodeFunc('game_version')
-  const getGearReqByCode = makeGetByCodeFunc('character_gear_req')
+  const getGearReqByCode = makeGetByCodeFunc('character_gearreq')
   const getCruciByCode = makeGetByCodeFunc('character_cruci')
   const getSrLevelByCode = makeGetByCodeFunc('character_sr_level')
   const getPurposeByCode = makeGetByCodeFunc('character_purpose')
+  const getActiveSkillByCode = makeGetByCodeFunc('character_active_skill')
+  const getPassiveSkillByCode = makeGetByCodeFunc('character_passive_skill')
 
   /* SPEED BUMP */
 
@@ -255,10 +257,122 @@ module.exports.makeModel = (config, di) => {
     ))
   })
 
-  const insertBuild = (build) =>
-    di.mariapool.query(`
-
-      `)
+  /* All fields are codes where applicable. Wrap us in a transaction when calling. */
+  const insertBuild = ({
+    charname,
+    mastery1,
+    mastery2,
+    damageType,
+    playStyle,
+    gameVersion,
+    gearReq,
+    cruci,
+    srLevel,
+    guide,
+    author,
+    primarySkill,
+    link,
+    purpose,
+    blurb,
+    image,
+    activeSkills,
+    passiveSkills,
+  }) => mariadb => Bluebird.props({
+    charname,
+    mastery1: getMasteryByCode(mastery1),
+    mastery2: getMasteryByCode(mastery2),
+    damageType: getDamageTypeByCode(damageType),
+    playStyle: getPlayStyleByCode(playStyle),
+    gameVersion: getGameVersionByCode(gameVersion),
+    gearReq: getGearReqByCode(gearReq),
+    cruci: getCruciByCode(cruci),
+    srLevel: getSrLevelByCode(srLevel),
+    guide,
+    author,
+    primarySkill: getActiveSkillByCode(primarySkill),
+    link,
+    purpose: getPurposeByCode(purpose),
+    blurb,
+    image,
+    /* TODO make concurrency configurable */
+    activeSkills: Bluebird.map(activeSkills, getActiveSkillByCode, { concurrency: 99 }),
+    passiveSkills: Bluebird.map(passiveSkills, getPassiveSkillByCode, { concurrency: 99 }),
+  })
+  .then(({
+    charname,
+    mastery1,
+    mastery2,
+    damageType,
+    playStyle,
+    gameVersion,
+    gearReq,
+    cruci,
+    srLevel,
+    guide,
+    author,
+    primarySkill,
+    link,
+    purpose,
+    blurb,
+    image,
+    activeSkills,
+    passiveSkills,
+  }) => {
+    return mariadb.query(`
+      insert into build set
+        charname = ?,
+        mastery_id_1 = ?,
+        mastery_id_2 = ?,
+        damage_type_id = ?,
+        play_style_id = ?,
+        game_version_id = ?,
+        gearreq_id = ?,
+        cruci_id = ?,
+        sr_level_id = ?,
+        guide = ?,
+        author = ?,
+        primary_skill_id = ?,
+        link = ?,
+        purpose_id = ?,
+        blurb = ?,
+        image = ?
+    `, [
+      charname,
+      mastery1.id,
+      mastery2.id,
+      damageType.id,
+      playStyle.id,
+      gameVersion.id,
+      gearReq.id,
+      cruci.id,
+      srLevel.id,
+      JSON.stringify(guide),
+      author,
+      primarySkill.id,
+      link,
+      purpose.id,
+      blurb,
+      image
+    ])
+    .then(([{insertId: buildId}]) =>
+      Bluebird.map(
+        activeSkills,
+        ({id}) => mariadb.query(
+          'insert into build_character_active_skill set build_id=?, active_skill_id=?',
+          [buildId, id]
+        )
+      )
+      .then(() => Bluebird.map(
+          passiveSkills,
+          ({id}) => mariadb.query(
+            'insert into build_character_passive_skill set build_id=?, passive_skill_id=?',
+            [buildId, id]
+          )
+        )
+      )
+      .then(() => buildId)
+    )
+  })
 
   const getBuildById = id =>
     di.mariapool.query(`
@@ -303,5 +417,6 @@ module.exports.makeModel = (config, di) => {
     getAllBuilds,
     getBuildById,
     getAllBuildsByCriteria,
+    insertBuild,
   }
 }

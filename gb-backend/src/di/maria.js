@@ -24,7 +24,8 @@ function createPool(config){
       conn => conn.beginTransaction()
       .then(() => fn(conn))
       .then(
-        () => conn.commit(),
+        rval => conn.commit()
+          .then(() => rval),
         err => {
           conn.rollback()
           throw err
