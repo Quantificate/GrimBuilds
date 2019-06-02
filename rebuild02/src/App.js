@@ -5,30 +5,14 @@ import FaqModal from './faqModal'
 import SubmitForm from './SubmitForm'
 import BuildGuide from './BuildGuide'
 import MainHeader from './mainHeader'
+import SearchResultsPage from './SearchResultsPage'
 import { BrowserRouter, Route, Link, Switch } from 'react-router-dom'
 import * as filterOptions from './Filters.json'
 import './App.css';
 
-//TODO: Conditionals for different info items based on Purpose.
-//TODO: Code for creating cards generically, then filling with database info.
+const renderOption = (label, value) => <option key={value} value={value}>{label}</option>
 
-// const routeA = () => <div>
-//   <h3>Route A</h3>
-//   <p>
-//     Wow! A route!
-//     <Link to="/b/1">LOOK</Link>
-//     <Link to="/b/2">ANOTHER</Link>
-//     <Link to="/b/3">ROUTE</Link>
-//     <Link to="/b/4"><Button variant="outline-secondary">Try Me</Button></Link>
-//   </p>
-// </div>
-// const routeB = ({match:{params:{id}}}) => <div>
-//   <h3>Route /b/{id}</h3>
-//   <p>omg too mayn routes <Link to="/">go back..</Link></p>
-// </div>
-
-
-const renderOption = opt => <option key={opt} value={opt}>{opt}</option>
+const renderOptions = options => Object.keys(options).map(key => renderOption(options[key], key))
 
 const filterCategories = [
     "class",
@@ -55,14 +39,14 @@ const unaryFilterCategories = [
 ]
 
 const initFilterState = {
-    class: '',
-    mastery: '',
-    playstyle: '',
-    purpose: '',
-    damagetype: '',
-    srlevel: '',
-    cruci: '',
-    gearreq: '',
+    class: "",
+    mastery: "",
+    playstyle: "",
+    purpose: "",
+    damagetype: "",
+    srlevel: "",
+    cruci: "",
+    gearreq: "",
 }
 
 const filterBuilds = (filters, searchText) => build => {
@@ -95,30 +79,48 @@ class App extends Component {
         )
     }
     onChangeFilter(filterCategory, ev) {
-        console.log('changing filter for', filterCategory, 'to', ev.value)
+        const newFilters = { ...this.state.filters, [filterCategory]: ev.target.value }
         this.setState({
-            filters: { ...this.state.filters, [filterCategory]: ev.target.value }
+            filters: newFilters
         })
+        this.search(newFilters)
     }
+
+    search(filters) {
+      this.setState({
+        builds: null,
+        err: null
+      })
+      const searchBody = {
+        classCode: filters.class || null,
+        masteryCode: filters.mastery || null,
+        playStyleCode: filters.playstyle || null,
+        purposeCode: filters.purpose || null,
+        damageTypeCode: filters.damagetype || null,
+        srLevelCode: filters.srlevel || null,
+        cruciCode: filters.cruci || null,
+        gearReqCode: filters.gearreq || null,
+      }
+      fetch('/api/builds/search', {
+        method: "POST",
+        body: JSON.stringify(searchBody),
+        headers:{"Content-Type": "application/json"}
+      })
+      .then(res => res.json()
+        .then(body => {
+          if (res.ok)
+            return body
+          throw new Error(body.err)
+        })
+      )
+      .then(builds => this.setState({ builds }))
+      .catch(err => this.setState({err}))
+    }
+
     componentDidMount() {
-        fetch('/api/builds-all')
-        .then(res => {
-            console.log(res);
-            return res.json()
-        })
-        .then(builds => {
-            /* For our prototype, we want search text to apply to every field
-             * in the build, so let's create a field which concatenates every
-             * field in the build */
-            builds.forEach(build =>
-                build._all = Object.keys(build).map(
-                    key => build[key]
-                ).join(' ')
-            )
-            console.log(builds);
-            this.setState({ builds })
-        });
+      this.search(this.state.filters)
     }
+
     onSearchBarChange = ev => {
         this.setState({
             searchText: ev.target.value
@@ -127,22 +129,9 @@ class App extends Component {
 
     render() {
         /* Filter builds down */
-        const builds = this.state.builds.filter(
-            filterBuilds(
-                this.state.filters,
-                this.state.searchText,
-            )
-        )
+        const builds = this.state.builds
 
-        const renderResults = results => <div className="row">{
-            results.map(BuildCard)
-        }</div>
-
-        function Cardholder() {
-          return <div className="container" id="cardholder">
-              {renderResults(builds)}
-          </div>;
-        }
+        const Cardholder = () => <SearchResultsPage builds={builds} />
 
         const buildGuideSelector = (builds, id) => {
           var singular = builds.find(build => build.id == id);
@@ -165,49 +154,49 @@ class App extends Component {
                     <Form.Group controlId="formClass">
                         <Form.Control as="select" onChange={this.onChangeClass}>
                             <option key="none" value="">Class</option>
-                            {filterOptions.class.map(renderOption)}
+                            {renderOptions(filterOptions.class)}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formMastery">
                         <Form.Control as="select" onChange={this.onChangeMastery}>
                             <option key="none" value="">Mastery</option>
-                            {filterOptions.mastery.map(renderOption)}
+                            {renderOptions(filterOptions.mastery)}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formStyle">
                         <Form.Control as="select" onChange={this.onChangePlaystyle}>
                             <option key="none" value="">Playstyle</option>
-                            {filterOptions.playstyle.map(renderOption)}
+                            {renderOptions(filterOptions.playstyle)}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formPurpose">
                         <Form.Control as="select" onChange={this.onChangePurpose}>
                             <option key="none" value="">Purpose</option>
-                            {filterOptions.purpose.map(renderOption)}
+                            {renderOptions(filterOptions.purpose)}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formDamage">
                         <Form.Control as="select" onChange={this.onChangeDamagetype}>
                             <option key="none" value="">Damage Type</option>
-                            {filterOptions.damagetype.map(renderOption)}
+                            {renderOptions(filterOptions.damagetype)}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formSR">
                         <Form.Control as="select" onChange={this.onChangeSrlevel}>
                             <option key="none" value="">Shattered Realms</option>
-                            {filterOptions.srlevel.map(renderOption)}
+                            {renderOptions(filterOptions.srlevel)}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formCruci">
                         <Form.Control as="select" onChange={this.onChangeCruci}>
                             <option key="none" value="">Crucible</option>
-                            {filterOptions.cruci.map(renderOption)}
+                            {renderOptions(filterOptions.cruci)}
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formGear">
                         <Form.Control as="select" onChange={this.onChangeGearreq}>
                             <option key="none" value="">Gear Requirement</option>
-                            {filterOptions.gearreq.map(renderOption)}
+                            {renderOptions(filterOptions.gearreq)}
                         </Form.Control>
                     </Form.Group>
                     </Form.Row>
@@ -226,13 +215,12 @@ class App extends Component {
             </Navbar>
             <BrowserRouter>
               <Switch>
-                <Route path="/" exact component={Cardholder} />
+                <Route path="/" exact render={() => <SearchResultsPage builds={this.state.builds} err={this.state.err} />} />
                 <Route path="/guide/:id" component={BuildGuide}/>
               </Switch>
             </BrowserRouter>
           </div>
         </div>
-
   );
 }
 }

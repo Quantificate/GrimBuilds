@@ -44,6 +44,11 @@ module.exports.makeModel = (config, di) => {
       [id]
     ).then(first)
 
+  const getClassByCode = code => di.mariapool.query(
+    `select mastery_id_1, mastery_id_2, code, label from character_class where code = ?`,
+    [code]
+  ).then(first)
+
   const makeGetByCodeFunc = tableName => code => di.mariapool.query(
     `select id, code, label from ${tableName} where code = ?`,
     [code]
@@ -51,7 +56,7 @@ module.exports.makeModel = (config, di) => {
 
   const getMasteryByCode = makeGetByCodeFunc('character_mastery')
   const getDamageTypeByCode = makeGetByCodeFunc('character_damage_type')
-  const getPlaystyleByCode = makeGetByCodeFunc('character_play_style')
+  const getPlayStyleByCode = makeGetByCodeFunc('character_play_style')
   const getGameVersionByCode = makeGetByCodeFunc('game_version')
   const getGearReqByCode = makeGetByCodeFunc('character_gear_req')
   const getCruciByCode = makeGetByCodeFunc('character_cruci')
@@ -175,8 +180,10 @@ module.exports.makeModel = (config, di) => {
 
   const whereParamNullOrMatch = colName => `(? is null or ? = ${colName})`
 
+  const getId = ({ id }) => id
+
   const getAllBuildsByCriteria = ({
-    classCompoundCode,
+    classCode,
     masteryCode,
     playStyleCode,
     purposeCode,
@@ -184,19 +191,20 @@ module.exports.makeModel = (config, di) => {
     srLevelCode,
     cruciCode,
     gearReqCode,
+    limit,
   }) => Bluebird.props({
-    classCompoundCode0: classCompoundCode && classCompoundCode[0] && getMasteryByCode(classCompoundCode[0]),
-    classCompoundCode1: classCompoundCode && classCompoundCode[1] && getMasteryByCode(classCompoundCode[1]),
-    masteryId: masteryCode && getMasteryByCode(masteryCode),
-    playStyleId: playStyleCode && getPlayStyleByCode(playStyleCode),
-    purposeId: purposeCode && getPurposeByCode(purposeCode),
-    damageTypeId: damageTypeCode && getDamageTypeByCode(damageTypeCode),
-    srLevelId: srLevelCode && getSrLevelByCode(srLevelCode),
-    cruciId: cruciCode && getCruciByCode(cruciCode),
-    gearReqId: gearReqCode && getGearReqByCode(gearReqCode),
+    classRow: classCode && getClassByCode(classCode),
+    masteryId: masteryCode && getMasteryByCode(masteryCode).then(getId),
+    playStyleId: playStyleCode && getPlayStyleByCode(playStyleCode).then(getId),
+    purposeId: purposeCode && getPurposeByCode(purposeCode).then(getId),
+    damageTypeId: damageTypeCode && getDamageTypeByCode(damageTypeCode).then(getId),
+    srLevelId: srLevelCode && getSrLevelByCode(srLevelCode).then(getId),
+    cruciId: cruciCode && getCruciByCode(cruciCode).then(getId),
+    gearReqId: gearReqCode && getGearReqByCode(gearReqCode).then(getId),
+    limit,
   })
   .then(({
-    classCompoundId,
+    classRow,
     masteryId,
     playStyleId,
     purposeId,
@@ -204,7 +212,16 @@ module.exports.makeModel = (config, di) => {
     srLevelId,
     cruciId,
     gearReqId,
+    limit,
   }) => {
+    let masteryId1FromClass = classRow && classRow.mastery_id_1
+    let masteryId2FromClass = classRow && classRow.mastery_id_2
+    if (masteryId1FromClass > masteryId2FromClass) {
+      let temp = masteryId1FromClass
+      masteryId1FromClass = masteryId2FromClass
+      masteryId2FromClass = temp
+    }
+
     return di.mariapool.query(`
       select
       ${commonBuildFields}
@@ -218,16 +235,18 @@ module.exports.makeModel = (config, di) => {
         ${whereParamNullOrMatch('cruci_id')} and
         ${whereParamNullOrMatch('gearreq_id')} and
         (? is null or ? = mastery_id_1 or ? = mastery_id_2)
+      limit ?
     `, [
-      classCompoundId ? 0 : 1,
-      classCompoundId && classCompoundId[0], classCompoundId && classCompoundId[1],
+      classRow ? 0 : 1,
+      masteryId1FromClass, masteryId2FromClass,
       playStyleId, playStyleId,
       purposeId, purposeId,
       damageTypeId, damageTypeId,
       srLevelId, srLevelId,
       cruciId, cruciId,
       gearReqId, gearReqId,
-      masteryId, masteryId, masteryId
+      masteryId, masteryId, masteryId,
+      limit
     ])
     .then(([rows]) => Bluebird.map(
       rows,

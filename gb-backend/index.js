@@ -33,8 +33,15 @@ app.get('/api/guide/:buildId', (req, res, next) => {
     })
 })
 
+/* TODO find a home for this function */
+const maybeMin = (maybe, min) => maybe === null ? Math.min(maybe, min) : min
+
 app.post('/api/builds/search', (req, res, next) => {
-  return model.getAllBuildsByCriteria(req.body)
+  const buildFilterCriteria = {
+    ...req.body,
+    limit: maybeMin(req.body.limit, config.app.MAX_BUILDS_SEARCH_RESULTS)
+  }
+  model.getAllBuildsByCriteria(buildFilterCriteria)
   .then(builds => res.send(builds))
   .catch(next)
 })

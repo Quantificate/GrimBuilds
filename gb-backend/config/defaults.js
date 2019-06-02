@@ -13,5 +13,8 @@ module.exports = {
   HTTPserver: {
     port: 5000
   },
+  app: {
+    MAX_BUILDS_SEARCH_RESULTS: 48
+  },
   latestGameVersion: "1.1.2.4"
 }
