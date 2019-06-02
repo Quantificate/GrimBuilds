@@ -34,7 +34,6 @@ app.get('/api/guide/:buildId', (req, res, next) => {
 })
 
 app.post('/api/builds/search', (req, res, next) => {
-  console.log('got search body=', req.body)
   return model.getAllBuildsByCriteria(req.body)
   .then(builds => res.send(builds))
   .catch(next)
@@ -108,6 +107,8 @@ app.post('/api/likes', (req, res, next) => {
 
 app.use((err, req, res, next) => {
   /* TODO handle not found error differently */
+  console.error('fatal request handler error:')
+  console.error(err)
   res.status(500).send({
     success: false,
     err: err.message

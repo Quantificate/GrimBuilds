@@ -44,6 +44,22 @@ module.exports.makeModel = (config, di) => {
       [id]
     ).then(first)
 
+  const makeGetByCodeFunc = tableName => code => di.mariapool.query(
+    `select id, code, label from ${tableName} where code = ?`,
+    [code]
+  ).then(first)
+
+  const getMasteryByCode = makeGetByCodeFunc('character_mastery')
+  const getDamageTypeByCode = makeGetByCodeFunc('character_damage_type')
+  const getPlaystyleByCode = makeGetByCodeFunc('character_play_style')
+  const getGameVersionByCode = makeGetByCodeFunc('game_version')
+  const getGearReqByCode = makeGetByCodeFunc('character_gear_req')
+  const getCruciByCode = makeGetByCodeFunc('character_cruci')
+  const getSrLevelByCode = makeGetByCodeFunc('character_sr_level')
+  const getPurposeByCode = makeGetByCodeFunc('character_purpose')
+
+  /* SPEED BUMP */
+
   const getClassByMasteryIds = (a, b) => di.mariapool.query(`
     select
       code,
@@ -160,6 +176,26 @@ module.exports.makeModel = (config, di) => {
   const whereParamNullOrMatch = colName => `(? is null or ? = ${colName})`
 
   const getAllBuildsByCriteria = ({
+    classCompoundCode,
+    masteryCode,
+    playStyleCode,
+    purposeCode,
+    damageTypeCode,
+    srLevelCode,
+    cruciCode,
+    gearReqCode,
+  }) => Bluebird.props({
+    classCompoundCode0: classCompoundCode && classCompoundCode[0] && getMasteryByCode(classCompoundCode[0]),
+    classCompoundCode1: classCompoundCode && classCompoundCode[1] && getMasteryByCode(classCompoundCode[1]),
+    masteryId: masteryCode && getMasteryByCode(masteryCode),
+    playStyleId: playStyleCode && getPlayStyleByCode(playStyleCode),
+    purposeId: purposeCode && getPurposeByCode(purposeCode),
+    damageTypeId: damageTypeCode && getDamageTypeByCode(damageTypeCode),
+    srLevelId: srLevelCode && getSrLevelByCode(srLevelCode),
+    cruciId: cruciCode && getCruciByCode(cruciCode),
+    gearReqId: gearReqCode && getGearReqByCode(gearReqCode),
+  })
+  .then(({
     classCompoundId,
     masteryId,
     playStyleId,
@@ -198,7 +234,7 @@ module.exports.makeModel = (config, di) => {
       hydrateBuildRow,
       { concurrency: 1 }
     ))
-  }
+  })
 
   const insertBuild = (build) =>
     di.mariapool.query(`
