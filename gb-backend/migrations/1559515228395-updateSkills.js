@@ -6,7 +6,7 @@ const container = createContainer(config)
 
 module.exports.up = function (next) {
   container.mariapool.query(`
-    replace into character_active_skill (code, label) values
+    insert into character_active_skill (code, label) values
       ("blade-arc", "Blade Arc"),
       ("blitz", "Blitz"),
       ("cadence", "Cadence"),
@@ -79,7 +79,8 @@ module.exports.up = function (next) {
       ("storm-totem","Storm Totem"),
       ("summon-briarthorn","Summon Briarthorn"),
       ("wendigo-totem","Wendigo Totem"),
-      ("wind-devil","Wind Devil"),
+      ("wind-devil","Wind Devil")
+      on duplicate key update label=values(label)
     `)
   .then(() => next())
   .catch(next)
