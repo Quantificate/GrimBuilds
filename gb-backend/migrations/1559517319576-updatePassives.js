@@ -6,7 +6,7 @@ const container = createContainer(config)
 
 module.exports.up = function (next) {
   container.mariapool.query(`
-    replace into character_passive_skill (code, label) values
+    insert into character_passive_skill (code, label) values
       ("decorated-soldier","Decorated Soldier"),
       ("fighting-spirit","Fighting Spirit"),
       ("markovian-s-advantage","Markovian's Advantage"),
@@ -66,15 +66,13 @@ module.exports.up = function (next) {
       ("divine-mandate", "Divine Mandate"),
       ("path-of-the-three", "Path of the Three"),
       ("presence-of-virtue", "Presence of Virtue")
+      on duplicate key update label=values(label)
     `)
     .then(() => next())
     .catch(next)
 }
 
 module.exports.down = function (next) {
-  return container.mariapool.query(`
-    delete from character_passive_skill where id > 109
-    `)
-  .then(() => next())
-  .catch(next)
+  /* not all migrations can be undone. do nothing. */
+  next()
 }
