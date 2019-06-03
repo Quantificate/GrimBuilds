@@ -79,7 +79,7 @@ module.exports.up = function (next) {
       ("storm-totem","Storm Totem"),
       ("summon-briarthorn","Summon Briarthorn"),
       ("wendigo-totem","Wendigo Totem"),
-      ("wind-devil","Wind Devil"),
+      ("wind-devil","Wind Devil")
     `)
   .then(() => next())
   .catch(next)
