@@ -5,6 +5,11 @@ import {EditorState, convertToRaw} from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
+const getCode = value => value.toLowerCase()
+  .replace(/[^a-zA-Z0-9_.-]+/g, '-')
+  .replace(/^-*/, '')
+  .replace(/-*$/, '')
+
 class SubmitForm extends Component {
 
     constructor(props, context) {
@@ -38,16 +43,16 @@ class SubmitForm extends Component {
             submitting: false,
             err: false,
             charname: "",
-            mastery1: "Soldier",
-            mastery2: "Soldier",
-            damage: "Physical",
-            style: "Sword and Board",
-            purpose: "New Players",
-            gear: "100% Vendors",
-            cruci: "Crucible 1+",
-            sr: "SR 1+",
-            activeskills: "",
-            passiveskills: "",
+            mastery1: "soldier",
+            mastery2: "soldier",
+            damage: "physical",
+            style: "sword-and-board",
+            purpose: "new-players",
+            gear: "100-vendors",
+            cruci: "crucible-1",
+            sr: "sr-1",
+            activeskills: [],
+            passiveskills: [],
             primaryskill: "",
             author: "",
             link: "",
@@ -73,20 +78,41 @@ class SubmitForm extends Component {
     };
 
     submitForm() {
-      console.log(this.state)
+      console.log('send state=', this.state, typeof this.state.activeskills)
       const { charname, mastery1, mastery2, damage, style, purpose, gear, cruci, sr, activeskills, passiveskills, primaryskill, author, link, blurb, image, guide } = this.state
 
       this.setState({
         submitting: true
       })
 
-      fetch('/api/builds', {
+      let activeskillcodes = activeskills.split(',').map(item => getCode(item.trim()))
+      let passiveskillcodes = passiveskills.split(',').map(item => getCode(item.trim()))
+      let primaryskillcode = getCode(primaryskill.trim())
+
+      fetch('/builds', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          charname, mastery1, mastery2, damage, style, purpose, gear, cruci, sr, activeskills, passiveskills, primaryskill, author, link, blurb, image, guide
+          "charname": charname,
+          "mastery1": mastery1,
+          "mastery2": mastery2,
+          "damageType": damage,
+          "playStyle": style,
+          "gameVersion": "1.1.2.5",
+          "gearReq": gear,
+          "cruci": cruci,
+          "srLevel": sr,
+          "guide": guide,
+          "author": author,
+          "primarySkill": primaryskillcode,
+          "link": link,
+          "purpose": purpose,
+          "blurb": blurb,
+          "image": image,
+          "activeSkills": activeskillcodes,
+          "passiveSkills": passiveskillcodes
         })
       })
       .then(response => {
@@ -124,97 +150,97 @@ class SubmitForm extends Component {
             <Form.Group controlId="buildForm" id="masterygroup">
               <Form.Label>Your Masteries</Form.Label>
               <Form.Control as="select" onChange={this.handleMastery1Change} value={this.state.mastery1}>
-                <option>Soldier</option>
-                <option>Demolitionist</option>
-                <option>Occultist</option>
-                <option>Nightblade</option>
-                <option>Arcanist</option>
-                <option>Shaman</option>
-                <option>Inquisitor</option>
-                <option>Necromancer</option>
-                <option>Oathkeeper</option>
+                <option value="soldier">Soldier</option>
+                <option value="demolitionist">Demolitionist</option>
+                <option value="occultist">Occultist</option>
+                <option value="nightblade">Nightblade</option>
+                <option value="arcanist">Arcanist</option>
+                <option value="shaman">Shaman</option>
+                <option value="inquisitor">Inquisitor</option>
+                <option value="necromancer">Necromancer</option>
+                <option value="oathkeeper">Oathkeeper</option>
               </Form.Control>
               <Form.Control as="select" onChange={this.handleMastery2Change} value={this.state.mastery2}>
-                <option>Soldier</option>
-                <option>Demolitionist</option>
-                <option>Occultist</option>
-                <option>Nightblade</option>
-                <option>Arcanist</option>
-                <option>Shaman</option>
-                <option>Inquisitor</option>
-                <option>Necromancer</option>
-                <option>Oathkeeper</option>
+              <option value="soldier">Soldier</option>
+              <option value="demolitionist">Demolitionist</option>
+              <option value="occultist">Occultist</option>
+              <option value="nightblade">Nightblade</option>
+              <option value="arcanist">Arcanist</option>
+              <option value="shaman">Shaman</option>
+              <option value="inquisitor">Inquisitor</option>
+              <option value="necromancer">Necromancer</option>
+              <option value="oathkeeper">Oathkeeper</option>
               </Form.Control>
             </Form.Group>
             <Form.Group controlId="buildForm">
               <Form.Label>Details</Form.Label>
               <Form.Text className="text-muted">Primary Damage Type</Form.Text>
               <Form.Control as="select" onChange={this.handleDamageChange} value={this.state.damage}>
-                <option>Physical</option>
-                <option>Fire</option>
-                <option>Cold</option>
-                <option>Lightning</option>
-                <option>Vitality</option>
-                <option>Chaos</option>
-                <option>Aether</option>
-                <option>Acid</option>
-                <option>Bleed</option>
-                <option>Elemental</option>
+                <option value="physical">Physical</option>
+                <option value="fire">Fire</option>
+                <option value="cold">Cold</option>
+                <option value="lightning">Lightning</option>
+                <option value="vitality">Vitality</option>
+                <option value="chaos">Chaos</option>
+                <option value="aether">Aether</option>
+                <option value="acid">Acid</option>
+                <option value="bleeding">Bleed</option>
+                <option value="elemental">Elemental</option>
               </Form.Control>
               <Form.Text className="text-muted">Playstyle</Form.Text>
               <Form.Control as="select" onChange={this.handleStyleChange} value={this.state.style}>
-                <option>Sword and Board</option>
-                <option>Two-Handed Melee</option>
-                <option>Two-Handed Ranged</option>
-                <option>Dual-Wield Melee</option>
-                <option>Dual-Wield Ranged</option>
-                <option>Caster</option>
-                <option>Retaliation</option>
-                <option>Spin to Win</option>
+                <option value="sword-and-board">Sword and Board</option>
+                <option value="2h-melee">Two-Handed Melee</option>
+                <option value="2h-ranged">Two-Handed Ranged</option>
+                <option value="dw-melee">Dual-Wield Melee</option>
+                <option value="dw-ranged">Dual-Wield Ranged</option>
+                <option value="caster">Caster</option>
+                <option value="retaliation">Retaliation</option>
               </Form.Control>
               <Form.Text className="text-muted">Build Purpose</Form.Text>
               <Form.Control as="select" onChange={this.handlePurposeChange} value={this.state.purpose}>
-                <option>New Players</option>
-                <option>Leveling</option>
-                <option>Main Campaign</option>
-                <option>Endgame</option>
-                <option>Farming</option>
-                <option>Shattered Realm/Crucible</option>
+                <option value="new-players">New Players</option>
+                <option value="leveling">Leveling</option>
+                <option value="main-campaign">Main Campaign</option>
+                <option value="endgame">Endgame</option>
+                <option value="farming">Farming</option>
+                <option value="shattered-realm-crucible">Shattered Realm/Crucible</option>
               </Form.Control>
               <Form.Text className="text-muted">Gear Requirement (see FAQ for Gear Requirement Descriptions)</Form.Text>
               <Form.Control as="select" onChange={this.handleGearChange} value={this.state.gear}>
-                <option>100% Vendors</option>
-                <option>Vendors/Reputation Blueprints</option>
-                <option>Vendors/Dropped Blueprints</option>
-                <option>Light Farming Legendaries</option>
-                <option>Moderate Farming Legendaries</option>
-                <option>Heavy Farming Legendaries</option>
-                <option>1 MI Farming</option>
-                <option>2+ MI Farming</option>
+                <option value="100-vendors">100% Vendors</option>
+                <option value="vendors-rep-blueprints">Vendors/Reputation Blueprints</option>
+                <option value="vendors-dropped-blueprints">Vendors/Dropped Blueprints</option>
+                <option value="light-farming-legendaries">Light Farming Legendaries</option>
+                <option value="moderate-farming-legendaries">Moderate Farming Legendaries</option>
+                <option value="heavy-farming-legendaries">Heavy Farming Legendaries</option>
+                <option value="1-mi-farming">1 MI Farming</option>
+                <option value="2-mi-farming">2+ MI Farming</option>
               </Form.Control>
               <Form.Text className="text-muted">Crucible Ability (TESTED, not what you think it'll do)</Form.Text>
               <Form.Control as="select" onChange={this.handleCruciChange} value={this.state.cruci}>
-                <option>Crucible 1+</option>
-                <option>Crucible 15+</option>
-                <option>Crucible 25+</option>
-                <option>Crucible 50+</option>
-                <option>Crucible 75+</option>
-                <option>Crucible 100+</option>
-                <option>Crucible 125+</option>
-                <option>Crucible 150+</option>
-                <option>Crucible 170</option>
+                <option value="crucible-1">Crucible 1+</option>
+                <option value="crucible-15">Crucible 15+</option>
+                <option value="crucible-25">Crucible 25+</option>
+                <option value="crucible-50">Crucible 50+</option>
+                <option value="crucible-75">Crucible 75+</option>
+                <option value="crucible-100">Crucible 100+</option>
+                <option value="crucible-125">Crucible 125+</option>
+                <option value="crucible-150">Crucible 150+</option>
+                <option value="crucible-170">Crucible 170</option>
               </Form.Control>
               <Form.Text className="text-muted">Shattered Realm Ability (TESTED)</Form.Text>
               <Form.Control as="select" onChange={this.handleSRChange} value={this.state.sr}>
-                <option>SR 1+</option>
-                <option>SR 15+</option>
-                <option>SR 25+</option>
-                <option>SR 50+</option>
-                <option>SR 75+</option>
+                <option value="sr-1">SR 1+</option>
+                <option value="sr-15">SR 15+</option>
+                <option value="sr-25">SR 25+</option>
+                <option value="sr-50">SR 50+</option>
+                <option value="sr-75">SR 75+</option>
               </Form.Control>
             </Form.Group>
             <Form.Group controlId="buildForm" id="extras">
               <Form.Label>Extras</Form.Label>
+              <Form.Text className="text-muted">Skills, Separated by Commas (,); Spelling and Punctuation Count</Form.Text>
               <Form.Control placeholder="List your Active Skills Here" onChange={this.handleASkillChange} value={this.state.activeskills}/>
               <Form.Control placeholder="List your Passive Skills Here" onChange={this.handlePSkillChange} value={this.state.passiveskills}/>
               <Form.Control placeholder="What's your Primary (most used) Skill?" onChange={this.handlePrimaryChange} value={this.state.primaryskill}/>

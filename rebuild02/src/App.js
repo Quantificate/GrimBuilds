@@ -101,7 +101,7 @@ class App extends Component {
         cruciCode: filters.cruci || null,
         gearReqCode: filters.gearreq || null,
       }
-      fetch('/api/builds/search', {
+      fetch('/builds/search', {
         method: "POST",
         body: JSON.stringify(searchBody),
         headers:{"Content-Type": "application/json"}
@@ -146,7 +146,7 @@ class App extends Component {
           <div className="App-body">
             <Navbar bg="dark" expand="lg">
               <div className="filters">
-                <Navbar.Brand href="#home">Filters</Navbar.Brand>
+                <Navbar.Brand href="/">Filters</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                   <Form className="mr-auto">
@@ -202,15 +202,6 @@ class App extends Component {
                     </Form.Row>
                   </Form>
                 </Navbar.Collapse>
-              </div>
-              <div className="sortButtons">
-                <p>Sorting:</p>
-                <ButtonGroup aria-label="Sort Buttons">
-                  <Button variant="outline-secondary" onClick={this.handleSortChange} value="alpha">Alphabetical</Button>
-                  <Button variant="outline-secondary" onClick={this.handleSortChange} value="oldfirst">Oldest to Newest</Button>
-                  <Button variant="outline-secondary" onClick={this.handleSortChange} value="newfirst">Newest to Oldest</Button>
-                  <Button variant="outline-secondary" onClick={this.handleSortChange} value="likes">Most Liked</Button>
-                </ButtonGroup>
               </div>
             </Navbar>
             <BrowserRouter>

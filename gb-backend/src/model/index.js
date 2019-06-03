@@ -52,7 +52,12 @@ module.exports.makeModel = (config, di) => {
   const makeGetByCodeFunc = tableName => code => di.mariapool.query(
     `select id, code, label from ${tableName} where code = ?`,
     [code]
-  ).then(first)
+  ).then(([rows]) => {
+    if (rows.length == 0){
+      throw new Error (`no such code ${code} in table ${tableName}`)
+    }
+    return rows[0]
+  })
 
   const getMasteryByCode = makeGetByCodeFunc('character_mastery')
   const getDamageTypeByCode = makeGetByCodeFunc('character_damage_type')
@@ -318,6 +323,7 @@ module.exports.makeModel = (config, di) => {
     activeSkills,
     passiveSkills,
   }) => {
+    console.log('mastery1 =', mastery1)
     return mariadb.query(`
       insert into build set
         charname = ?,

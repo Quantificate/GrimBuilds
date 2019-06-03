@@ -7,7 +7,7 @@ class MainHeader extends Component {
   render() {
     return (
       <Navbar bg="dark" expand="lg">
-          <Navbar.Brand href="#home">Grim Builds <span>(alpha)</span></Navbar.Brand>
+          <Navbar.Brand href="/">Grim Builds <span>(alpha)</span></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
@@ -15,9 +15,6 @@ class MainHeader extends Component {
                   <SubmitForm />
               </Nav>
               <Button variant="outline-secondary" id="donateButton" href="https://paypal.me/theoreticaldev" target="_blank">Donate</Button>
-              <Form inline>
-                  <FormControl type="text" placeholder="Search Builds" className="mr-sm-2" onChange={this.onSearchBarChange} />
-              </Form>
           </Navbar.Collapse>
       </Navbar>
     )

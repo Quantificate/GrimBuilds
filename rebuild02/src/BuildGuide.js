@@ -10,7 +10,7 @@ class BuildGuide extends Component {
     constructor(props, context) {
         super(props, context);
 
-        this.handleFavClick = this.handleFavClick.bind(this);
+        // this.handleFavClick = this.handleFavClick.bind(this);
 
         this.state = {
             build: null,
@@ -20,32 +20,32 @@ class BuildGuide extends Component {
         };
     }
 
-    handleFavClick() {
-      const id = this.props.build.id;
-      if (this.state.clicked == false) {
-        fetch('/api/likes', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({id})
-        })
-        .then(response => {
-          console.log(response)
-          this.setState({clicked:true})
-        })
-        .catch(err => {
-          this.setState({ err })
-        })
-      } else {
-        return (
-          <Alert variant="danger">You have already liked this build.</Alert>
-        )
-      }
-    }
+    // handleFavClick() {
+    //   const id = this.props.build.id;
+    //   if (this.state.clicked == false) {
+    //     fetch('/api/likes', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json'
+    //       },
+    //       body: JSON.stringify({id})
+    //     })
+    //     .then(response => {
+    //       console.log(response)
+    //       this.setState({clicked:true})
+    //     })
+    //     .catch(err => {
+    //       this.setState({ err })
+    //     })
+    //   } else {
+    //     return (
+    //       <Alert variant="danger">You have already liked this build.</Alert>
+    //     )
+    //   }
+    // }
 
     componentDidMount() {
-      fetch('/api/guide/' + this.props.match.params.id)
+      fetch('/guide/' + this.props.match.params.id)
       .then(res => res.json()
         .then(body => {
           if (res.ok)
@@ -94,13 +94,6 @@ class BuildGuide extends Component {
                 target="_blank"
                 >
                   Grim Tools
-              </Button>
-              <Button
-                variant="outline-secondary"
-                onClick={this.handleFavClick}
-                value={build.likes}
-              >
-                Like this Build ({build.likes})
               </Button>
             </p>
           </div>
