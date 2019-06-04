@@ -89,7 +89,7 @@ class SubmitForm extends Component {
       let passiveskillcodes = passiveskills.split(',').map(item => getCode(item.trim()))
       let primaryskillcode = getCode(primaryskill.trim())
 
-      fetch('/builds', {
+      fetch('/api/builds', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -101,7 +101,7 @@ class App extends Component {
         cruciCode: filters.cruci || null,
         gearReqCode: filters.gearreq || null,
       }
-      fetch('/builds/search', {
+      fetch('/api/builds/search', {
         method: "POST",
         body: JSON.stringify(searchBody),
         headers:{"Content-Type": "application/json"}

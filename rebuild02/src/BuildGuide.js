@@ -45,7 +45,7 @@ class BuildGuide extends Component {
     // }
 
     componentDidMount() {
-      fetch('/guide/' + this.props.match.params.id)
+      fetch('/api/guide/' + this.props.match.params.id)
       .then(res => res.json()
         .then(body => {
           if (res.ok)
