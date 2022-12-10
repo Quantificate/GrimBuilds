@@ -7,7 +7,7 @@
     "body-parser": "^1.19.0",
     "csv": "^5.1.1",
     "debug": "^4.1.1",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "json-2-csv": "^3.5.3",
     "jsonfile": "^5.0.0",
     "migrate": "^1.6.2",
